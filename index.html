@@ -358,13 +358,17 @@
                 });
             };
 
-            const deleteAllMeetingProposals = () => {
-                if (!meetingProposals.length) return;
-                if (window.confirm('Remove all meeting proposals?')) {
-                    const db = window.firebaseDb; const ref = window.firebaseRef; const set = window.firebaseSet;
-                    set(ref(db, 'meetingProposals'), null);
-                }
-            };
+      const deleteAllMeetingProposals = () => {
+    if (!meetingProposals.length) return;
+    if (window.confirm('Remove all meeting proposals?')) {
+        const db = window.firebaseDb;
+        const ref = window.firebaseRef;
+        const remove = window.firebaseRemove;
+        meetingProposals.forEach(m => {
+            remove(ref(db, `meetingProposals/${m.id}`));
+        });
+    }
+};
 
             // ── Render guards ──
             if (!currentBook) {
