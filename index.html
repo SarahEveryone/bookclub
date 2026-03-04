@@ -123,9 +123,9 @@
                         '1': { title: 'The Grapes of Wrath', author: 'John Steinbeck', genre: ['Fiction', 'Classic'], votedBy: [], proposedBy: 'Laura', cover: 'https://covers.openlibrary.org/b/isbn/9780143039433-M.jpg' },
                         '2': { title: 'The Heart is a Lonely Hunter', author: 'Carson McCullers', genre: ['Fiction'], votedBy: [], proposedBy: 'Sarah', cover: 'https://covers.openlibrary.org/b/isbn/9780618526413-M.jpg' },
                         '3': { title: 'We', author: 'Yevgeny Zamyatin', genre: ['Science Fiction'], votedBy: [], proposedBy: 'Laura', cover: 'https://covers.openlibrary.org/b/isbn/9780140185850-M.jpg' },
-                        '4': { title: 'On Earth We\'re Briefly Gorgeous', author: 'Ocean Vuong', genre: ['Fiction'], votedBy: [], proposedBy: 'Caitlin', cover: 'https://covers.openlibrary.org/b/isbn/9780525562023-M.jpg' },
-                        '5': { title: 'Biography of X', author: 'Catherine Lacey', genre: ['Fiction'], votedBy: [], proposedBy: 'Caitlin', cover: 'https://covers.openlibrary.org/b/isbn/9780374110291-M.jpg' },
-                        '6': { title: 'Martyr!', author: 'Kaveh Akbar', genre: ['Fiction'], votedBy: [], proposedBy: 'Caitlin', cover: 'https://covers.openlibrary.org/b/isbn/9780593654910-M.jpg' },
+                        '4': { title: 'On Earth We\'re Briefly Gorgeous', author: 'Ocean Vuong', genre: ['Fiction'], votedBy: [], proposedBy: 'Kate', cover: 'https://covers.openlibrary.org/b/isbn/9780525562023-M.jpg' },
+                        '5': { title: 'Biography of X', author: 'Catherine Lacey', genre: ['Fiction'], votedBy: [], proposedBy: 'Kate', cover: 'https://covers.openlibrary.org/b/isbn/9780374110291-M.jpg' },
+                        '6': { title: 'Martyr!', author: 'Kaveh Akbar', genre: ['Fiction'], votedBy: [], proposedBy: 'Kate', cover: 'https://covers.openlibrary.org/b/isbn/9780593654910-M.jpg' },
                         '7': { title: 'The Master and Margarita', author: 'Mikhail Bulgakov', genre: ['Fiction', 'Classic'], votedBy: [], proposedBy: 'Sarah', cover: 'https://covers.openlibrary.org/b/isbn/9780679760801-M.jpg' },
                         '8': { title: 'A Tree Grows in Brooklyn', author: 'Betty Smith', genre: ['Fiction', 'Classic'], votedBy: [], proposedBy: 'Laura', cover: 'https://covers.openlibrary.org/b/isbn/9780060736262-M.jpg' },
                         '9': { title: 'Middlemarch', author: 'George Eliot', genre: ['Classic'], votedBy: [], proposedBy: 'Laura', cover: 'https://covers.openlibrary.org/b/isbn/9780141439549-M.jpg' },
@@ -133,7 +133,7 @@
                         '11': { title: 'Self', author: 'Yann Martel', genre: ['Fiction'], votedBy: [], proposedBy: 'Beth', cover: 'https://covers.openlibrary.org/b/isbn/9780156031011-M.jpg' },
                         '12': { title: 'The Age of Innocence', author: 'Edith Wharton', genre: ['Classic'], votedBy: [], proposedBy: 'Laura', cover: 'https://covers.openlibrary.org/b/isbn/9780486298030-M.jpg' },
                         '13': { title: 'Sula', author: 'Toni Morrison', genre: ['Fiction'], votedBy: [], proposedBy: 'Sarah', cover: 'https://covers.openlibrary.org/b/isbn/9781400033430-M.jpg' },
-                        '14': { title: 'The Left Hand of Darkness', author: 'Ursula K. Le Guin', genre: ['Science Fiction'], votedBy: [], proposedBy: 'Caitlin', cover: 'https://covers.openlibrary.org/b/isbn/9780441478125-M.jpg' },
+                        '14': { title: 'The Left Hand of Darkness', author: 'Ursula K. Le Guin', genre: ['Science Fiction'], votedBy: [], proposedBy: 'Kate', cover: 'https://covers.openlibrary.org/b/isbn/9780441478125-M.jpg' },
                         '15': { title: 'The Dispossessed', author: 'Ursula K. Le Guin', genre: ['Science Fiction'], votedBy: [], proposedBy: 'Sarah', cover: 'https://covers.openlibrary.org/b/isbn/9780061054884-M.jpg' },
                         '16': { title: 'A Tale of Two Cities', author: 'Charles Dickens', genre: ['Classic'], votedBy: [], proposedBy: 'Sarah', cover: 'https://covers.openlibrary.org/b/isbn/9780486406510-M.jpg' }
                     },
@@ -179,7 +179,7 @@
 
             const [currentUser, setCurrentUser] = useState(null);
             const [showUserSelect, setShowUserSelect] = useState(true);
-            const clubMembers = ['Beth', 'Caitlin', 'Laura', 'Sam', 'Sarah'];
+            const clubMembers = ['Beth', 'Kate', 'Laura', 'Sam', 'Sarah'];
 
             const getTabFromURL = () => {
                 const hash = window.location.hash.replace('#', '');
