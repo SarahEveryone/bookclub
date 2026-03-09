@@ -715,7 +715,7 @@
                                                     <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
                                                         <span className="px-2 py-1 rounded text-sm text-white w-fit" style={{backgroundColor:'#003631'}}>{book.genre}</span>
                                                         <span className="text-sm text-gray-600">Read on {book.meetingDate}</span>
-                                                        <button onClick={() => handleDelete('previous', book.id)} className="text-red-500 hover:text-red-700 sm:ml-auto w-fit">Delete</button>
+                                                        <button     onClick={() => { setModalData({ id: book.id, title: book.title, author: book.author, genre: book.genre, cover: book.cover, meetingDate: book.meetingDate }); setShowModal('editPrevious'); }}     className="text-blue-600 hover:text-blue-800 w-fit">Edit</button> <button onClick={() => handleDelete('previous', book.id)} className="text-red-500 hover:text-red-700 sm:ml-auto w-fit">Delete</button>
                                                     </div>
                                                 </div>
                                             </div>
