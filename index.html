@@ -7,76 +7,35 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://use.typekit.net/af/949f99/00000000000000003b9b3068/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3');
-        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap');
-
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600&display=swap');
+        
         .caslon-heading {
             font-family: 'adobe-caslon-pro', serif;
             font-style: italic;
             font-weight: 700;
         }
-
+        
         body, input, select, button, p, span, a, div {
             font-family: 'Crimson Text', serif !important;
         }
 
+        /* Gingham background pattern */
         .gingham-bg {
             background-color: #FFEDA8;
-            background-image:
-                linear-gradient(45deg, #FFF4CC 25%, transparent 25%),
-                linear-gradient(-45deg, #FFF4CC 25%, transparent 25%),
-                linear-gradient(45deg, transparent 75%, #FFF4CC 75%),
+            background-image: 
+                linear-gradient(45deg, #FFF4CC 25%, transparent 25%), 
+                linear-gradient(-45deg, #FFF4CC 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, #FFF4CC 75%), 
                 linear-gradient(-45deg, transparent 75%, #FFF4CC 75%);
             background-size: 20px 20px;
             background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
         }
-
-        /* ── Poll cards (meetings tab) ── */
-        .poll-card { background: white; border-radius: 16px; padding: 18px 20px; border: 2px solid #F0E68C; transition: border-color 0.2s, box-shadow 0.2s; position: relative; margin-bottom: 12px; }
-        .poll-card.winner { border-color: #003631; box-shadow: 0 0 0 4px #FFEDA830; }
-        .winner-badge { position: absolute; top: -11px; right: 16px; background: #003631; color: #FFEDA8; font-size: 0.72rem; padding: 3px 12px; border-radius: 20px; letter-spacing: 0.06em; font-weight: 600; font-style: normal; }
-        .poll-track { height: 26px; background: #f5f5f0; border-radius: 8px; overflow: hidden; margin-top: 10px; position: relative; }
-        .poll-fill { height: 100%; border-radius: 8px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); display: flex; align-items: center; padding-left: 10px; }
-        .poll-fill.my-vote { background: linear-gradient(to right, #003631, #005548); }
-        .poll-fill.others  { background: linear-gradient(to right, #C8E6E3, #DDEEED); }
-        .poll-pct { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 0.8rem; color: #888; font-weight: 600; }
-
-        /* ── Avatars ── */
-        .avatar { width: 26px; height: 26px; border-radius: 50%; background: #003631; color: #FFEDA8; display: inline-flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: bold; border: 2px solid white; margin-left: -6px; position: relative; cursor: default; }
-        .avatar:first-child { margin-left: 0; }
-        .avatar[title]:hover::after { content: attr(title); position: absolute; bottom: 115%; left: 50%; transform: translateX(-50%); background: #003631; color: white; font-size: 0.7rem; padding: 3px 8px; border-radius: 6px; white-space: nowrap; pointer-events: none; z-index: 20; }
-
-        /* ── Propose modal rows ── */
-        .proposal-row { display: grid; grid-template-columns: 1fr 110px auto; gap: 8px; align-items: end; background: #FAFAF8; border: 2px solid #F0E68C; border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; transition: border-color 0.15s; position: relative; }
-        .proposal-row:focus-within { border-color: #003631; }
-        .field-group { display: flex; flex-direction: column; gap: 3px; }
-        .field-label { font-size: 0.75rem; color: #bbb; font-style: normal; }
-
-        .date-trigger { font-family: 'Crimson Text', serif !important; font-size: 0.95rem; padding: 8px 12px; border: 1.5px solid #EEE; border-radius: 8px; background: white; cursor: pointer; text-align: left; color: #333; width: 100%; transition: border-color 0.15s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .date-trigger:hover, .date-trigger:focus { border-color: #003631; outline: none; }
-        .date-trigger.empty { color: #bbb; }
-
-        .btn-add-row { background: #FAFAF5; border: 2px dashed #D4C97A; color: #A89E50; border-radius: 12px; width: 100%; padding: 10px; font-family: 'Crimson Text', serif !important; font-size: 1rem; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: center; gap: 6px; }
-        .btn-add-row:hover { background: #FFFAEB; border-color: #003631; color: #003631; }
-
-        /* ── Calendar popout ── */
-        .cal-popout { position: absolute; top: calc(100% + 6px); left: 0; z-index: 9999; background: white; border-radius: 16px; padding: 16px; box-shadow: 0 12px 48px rgba(0,0,0,0.18); border: 2px solid #F0E68C; width: 280px; }
-        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; margin-top: 6px; }
-        .cp-cell { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; border-radius: 50%; cursor: pointer; font-size: 0.8rem; border: 2px solid transparent; transition: all 0.1s; user-select: none; }
-        .cp-cell:hover:not(.cp-empty):not(.cp-past) { background: #FFEDA8; border-color: #003631; }
-        .cp-cell.cp-past  { color: #ddd; cursor: not-allowed; }
-        .cp-cell.cp-empty { cursor: default; }
-        .cp-cell.cp-today { border-color: #003631; color: #003631; font-weight: bold; }
-        .cp-cell.cp-sel   { background: #003631; color: white; font-weight: bold; border-color: #003631; }
-        .cp-cell.cp-sel:hover { background: #004d45; }
-        .cp-hdr { text-align: center; font-size: 0.65rem; color: #ccc; padding: 2px 0; }
-
-        @keyframes fadeSlide { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
-        .fade-in { animation: fadeSlide 0.22s ease; }
     </style>
 </head>
 <body>
     <div id="root"></div>
 
+    <!-- Load React, ReactDOM, and Babel first -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -99,6 +58,7 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
+        // Make Firebase available globally for React app
         window.firebaseDb = database;
         window.firebaseRef = ref;
         window.firebaseSet = set;
@@ -107,6 +67,7 @@
         window.firebaseRemove = remove;
         window.firebaseUpdate = update;
 
+        // Initialize default data if database is empty
         const dbRef = ref(database);
         onValue(dbRef, (snapshot) => {
             if (!snapshot.exists()) {
@@ -123,9 +84,9 @@
                         '1': { title: 'The Grapes of Wrath', author: 'John Steinbeck', genre: ['Fiction', 'Classic'], votedBy: [], proposedBy: 'Laura', cover: 'https://covers.openlibrary.org/b/isbn/9780143039433-M.jpg' },
                         '2': { title: 'The Heart is a Lonely Hunter', author: 'Carson McCullers', genre: ['Fiction'], votedBy: [], proposedBy: 'Sarah', cover: 'https://covers.openlibrary.org/b/isbn/9780618526413-M.jpg' },
                         '3': { title: 'We', author: 'Yevgeny Zamyatin', genre: ['Science Fiction'], votedBy: [], proposedBy: 'Laura', cover: 'https://covers.openlibrary.org/b/isbn/9780140185850-M.jpg' },
-                        '4': { title: 'On Earth We\'re Briefly Gorgeous', author: 'Ocean Vuong', genre: ['Fiction'], votedBy: [], proposedBy: 'Kate', cover: 'https://covers.openlibrary.org/b/isbn/9780525562023-M.jpg' },
-                        '5': { title: 'Biography of X', author: 'Catherine Lacey', genre: ['Fiction'], votedBy: [], proposedBy: 'Kate', cover: 'https://covers.openlibrary.org/b/isbn/9780374110291-M.jpg' },
-                        '6': { title: 'Martyr!', author: 'Kaveh Akbar', genre: ['Fiction'], votedBy: [], proposedBy: 'Kate', cover: 'https://covers.openlibrary.org/b/isbn/9780593654910-M.jpg' },
+                        '4': { title: 'On Earth We\'re Briefly Gorgeous', author: 'Ocean Vuong', genre: ['Fiction'], votedBy: [], proposedBy: 'Caitlin', cover: 'https://covers.openlibrary.org/b/isbn/9780525562023-M.jpg' },
+                        '5': { title: 'Biography of X', author: 'Catherine Lacey', genre: ['Fiction'], votedBy: [], proposedBy: 'Caitlin', cover: 'https://covers.openlibrary.org/b/isbn/9780374110291-M.jpg' },
+                        '6': { title: 'Martyr!', author: 'Kaveh Akbar', genre: ['Fiction'], votedBy: [], proposedBy: 'Caitlin', cover: 'https://covers.openlibrary.org/b/isbn/9780593654910-M.jpg' },
                         '7': { title: 'The Master and Margarita', author: 'Mikhail Bulgakov', genre: ['Fiction', 'Classic'], votedBy: [], proposedBy: 'Sarah', cover: 'https://covers.openlibrary.org/b/isbn/9780679760801-M.jpg' },
                         '8': { title: 'A Tree Grows in Brooklyn', author: 'Betty Smith', genre: ['Fiction', 'Classic'], votedBy: [], proposedBy: 'Laura', cover: 'https://covers.openlibrary.org/b/isbn/9780060736262-M.jpg' },
                         '9': { title: 'Middlemarch', author: 'George Eliot', genre: ['Classic'], votedBy: [], proposedBy: 'Laura', cover: 'https://covers.openlibrary.org/b/isbn/9780141439549-M.jpg' },
@@ -133,11 +94,16 @@
                         '11': { title: 'Self', author: 'Yann Martel', genre: ['Fiction'], votedBy: [], proposedBy: 'Beth', cover: 'https://covers.openlibrary.org/b/isbn/9780156031011-M.jpg' },
                         '12': { title: 'The Age of Innocence', author: 'Edith Wharton', genre: ['Classic'], votedBy: [], proposedBy: 'Laura', cover: 'https://covers.openlibrary.org/b/isbn/9780486298030-M.jpg' },
                         '13': { title: 'Sula', author: 'Toni Morrison', genre: ['Fiction'], votedBy: [], proposedBy: 'Sarah', cover: 'https://covers.openlibrary.org/b/isbn/9781400033430-M.jpg' },
-                        '14': { title: 'The Left Hand of Darkness', author: 'Ursula K. Le Guin', genre: ['Science Fiction'], votedBy: [], proposedBy: 'Kate', cover: 'https://covers.openlibrary.org/b/isbn/9780441478125-M.jpg' },
+                        '14': { title: 'The Left Hand of Darkness', author: 'Ursula K. Le Guin', genre: ['Science Fiction'], votedBy: [], proposedBy: 'Caitlin', cover: 'https://covers.openlibrary.org/b/isbn/9780441478125-M.jpg' },
                         '15': { title: 'The Dispossessed', author: 'Ursula K. Le Guin', genre: ['Science Fiction'], votedBy: [], proposedBy: 'Sarah', cover: 'https://covers.openlibrary.org/b/isbn/9780061054884-M.jpg' },
                         '16': { title: 'A Tale of Two Cities', author: 'Charles Dickens', genre: ['Classic'], votedBy: [], proposedBy: 'Sarah', cover: 'https://covers.openlibrary.org/b/isbn/9780486406510-M.jpg' }
                     },
-                    meetingProposals: {},
+                    meetingProposals: {
+                        '1': { date: 'Feb 21, 2026', time: '7:00 PM', votedBy: [] },
+                        '2': { date: 'Feb 22, 2026', time: '7:00 PM', votedBy: [] },
+                        '3': { date: 'Feb 28, 2026', time: '7:00 PM', votedBy: [] },
+                        '4': { date: 'Mar 1, 2026', time: '7:00 PM', votedBy: [] }
+                    },
                     previousBooks: {
                         '1': { title: 'Wuthering Heights', author: 'Emily Brontë', cover: 'https://covers.openlibrary.org/b/isbn/9780141439556-M.jpg', genre: 'Classic', meetingDate: 'January 18, 2026' },
                         '2': { title: 'We Have Always Lived in the Castle', author: 'Shirley Jackson', cover: 'https://covers.openlibrary.org/b/isbn/9780143039976-M.jpg', genre: 'Gothic Fiction', meetingDate: 'December 12, 2025' }
@@ -151,52 +117,46 @@
 
     <!-- React App -->
     <script type="text/babel">
-        const { useState, useEffect, useRef } = React;
-
-        // ── Standalone calendar popout helpers (live outside React) ──
-        let _cpYear, _cpMonth, _openPopoutRowId;
-        const _today = new Date(); _today.setHours(0,0,0,0);
-
-        function _fmtShort(ds) {
-            const [y,m,d] = ds.split('-').map(Number);
-            return new Date(y,m-1,d).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
-        }
-        function _fmtNice(ds) {
-            const [y,m,d] = ds.split('-').map(Number);
-            return new Date(y,m-1,d).toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
-        }
-        function _fmtTime(t) {
-            if (!t) return '';
-            const [h,min] = t.split(':').map(Number);
-            return `${h%12||12}:${String(min).padStart(2,'0')} ${h>=12?'PM':'AM'}`;
-        }
+        const { useState, useEffect } = React;
 
         function BookClubApp() {
             const [isAuthenticated, setIsAuthenticated] = useState(false);
             const [passwordInput, setPasswordInput] = useState('');
             const [passwordError, setPasswordError] = useState('');
-            const CORRECT_PASSWORD = 'millcreek69';
-
+            const CORRECT_PASSWORD = 'bookclub2026'; // Change this to your desired password
+            
             const [currentUser, setCurrentUser] = useState(null);
             const [showUserSelect, setShowUserSelect] = useState(true);
-            const clubMembers = ['Beth', 'Kate', 'Laura', 'Sam', 'Sarah'];
-
+            const clubMembers = ['Beth', 'Caitlin', 'Laura', 'Sam', 'Sarah'];
+            
+            // Initialize activeTab from URL hash, or default to 'current'
             const getTabFromURL = () => {
                 const hash = window.location.hash.replace('#', '');
                 const validTabs = ['current', 'proposals', 'meetings', 'history'];
                 return validTabs.includes(hash) ? hash : 'current';
             };
+            
             const [activeTab, setActiveTab] = useState(getTabFromURL());
 
+            // Update URL when tab changes
             const changeTab = (tab) => {
                 setActiveTab(tab);
                 window.location.hash = tab;
             };
 
-            const tabLabels = { 'current': 'Current', 'proposals': 'Proposals', 'meetings': 'Schedule', 'history': 'History' };
+            // Tab display names
+            const tabLabels = {
+                'current': 'Current',
+                'proposals': 'Proposals',
+                'meetings': 'Schedule',
+                'history': 'History'
+            };
 
+            // Listen for browser back/forward button
             useEffect(() => {
-                const handleHashChange = () => setActiveTab(getTabFromURL());
+                const handleHashChange = () => {
+                    setActiveTab(getTabFromURL());
+                };
                 window.addEventListener('hashchange', handleHashChange);
                 return () => window.removeEventListener('hashchange', handleHashChange);
             }, []);
@@ -213,191 +173,266 @@
             const [genreFilter, setGenreFilter] = useState('all');
             const [proposerFilter, setProposerFilter] = useState('all');
 
-            // Meeting proposal rows state
-            const [propRows, setPropRows] = useState([{ id: 1, date: '', time: '19:00', location: '' }]);
-            const [propRowCounter, setPropRowCounter] = useState(1);
-            const [propError, setPropError] = useState('');
-
+            // Listen to Firebase data
             useEffect(() => {
                 const db = window.firebaseDb;
                 const ref = window.firebaseRef;
                 const onValue = window.firebaseOnValue;
 
-                onValue(ref(db, 'currentBook'),       s => setCurrentBook(s.val()));
-                onValue(ref(db, 'nextMeeting'),        s => setNextMeeting(s.val() || 'TBD'));
-                onValue(ref(db, 'bookProposals'),      s => {
-                    const data = s.val();
-                    setBookProposals(data ? Object.keys(data).map(k => ({ id: k, ...data[k] })) : []);
+                const currentBookRef = ref(db, 'currentBook');
+                onValue(currentBookRef, (snapshot) => {
+                    setCurrentBook(snapshot.val());
                 });
-                onValue(ref(db, 'meetingProposals'),   s => {
-                    const data = s.val();
-                    setMeetingProposals(data ? Object.keys(data).map(k => ({ id: k, ...data[k] })) : []);
+
+                const nextMeetingRef = ref(db, 'nextMeeting');
+                onValue(nextMeetingRef, (snapshot) => {
+                    setNextMeeting(snapshot.val() || 'TBD');
                 });
-                onValue(ref(db, 'previousBooks'),      s => {
-                    const data = s.val();
-                    setPreviousBooks(data ? Object.keys(data).map(k => ({ id: k, ...data[k] })) : []);
+
+                const bookProposalsRef = ref(db, 'bookProposals');
+                onValue(bookProposalsRef, (snapshot) => {
+                    const data = snapshot.val();
+                    if (data) {
+                        const books = Object.keys(data).map(key => ({
+                            id: key,
+                            ...data[key]
+                        }));
+                        setBookProposals(books);
+                    } else {
+                        setBookProposals([]);
+                    }
+                });
+
+                const meetingProposalsRef = ref(db, 'meetingProposals');
+                onValue(meetingProposalsRef, (snapshot) => {
+                    const data = snapshot.val();
+                    if (data) {
+                        const meetings = Object.keys(data).map(key => ({
+                            id: key,
+                            ...data[key]
+                        }));
+                        setMeetingProposals(meetings);
+                    } else {
+                        setMeetingProposals([]);
+                    }
+                });
+
+                const previousBooksRef = ref(db, 'previousBooks');
+                onValue(previousBooksRef, (snapshot) => {
+                    const data = snapshot.val();
+                    if (data) {
+                        const books = Object.keys(data).map(key => ({
+                            id: key,
+                            ...data[key]
+                        }));
+                        setPreviousBooks(books);
+                    } else {
+                        setPreviousBooks([]);
+                    }
                 });
             }, []);
 
-            // ── Book voting / CRUD (unchanged) ──
-            const handleVoteBook = (id) => {
+            const handleVote = (type, id) => {
                 if (!currentUser) return;
-                const db = window.firebaseDb; const ref = window.firebaseRef; const update = window.firebaseUpdate;
-                const book = bookProposals.find(b => b.id === id);
-                if (!book) return;
-                const votedBy = book.votedBy || [];
-                const newVotedBy = votedBy.includes(currentUser) ? votedBy.filter(n => n !== currentUser) : [...votedBy, currentUser];
-                update(ref(db, `bookProposals/${id}`), { votedBy: newVotedBy });
+                
+                const db = window.firebaseDb;
+                const ref = window.firebaseRef;
+                const update = window.firebaseUpdate;
+
+                if (type === 'book') {
+                    const book = bookProposals.find(b => b.id === id);
+                    if (!book) return;
+                    const votedBy = book.votedBy || [];
+                    const hasVoted = votedBy.includes(currentUser);
+                    const newVotedBy = hasVoted 
+                        ? votedBy.filter(name => name !== currentUser)
+                        : [...votedBy, currentUser];
+                    
+                    update(ref(db, `bookProposals/${id}`), {
+                        votedBy: newVotedBy
+                    });
+                } else if (type === 'meeting') {
+                    const meeting = meetingProposals.find(m => m.id === id);
+                    if (!meeting) return;
+                    const votedBy = meeting.votedBy || [];
+                    const hasVoted = votedBy.includes(currentUser);
+                    const newVotedBy = hasVoted 
+                        ? votedBy.filter(name => name !== currentUser)
+                        : [...votedBy, currentUser];
+                    
+                    update(ref(db, `meetingProposals/${id}`), {
+                        votedBy: newVotedBy
+                    });
+                }
             };
 
             const handleDelete = (type, id) => {
-                const db = window.firebaseDb; const ref = window.firebaseRef; const remove = window.firebaseRemove;
-                if (type === 'book')     remove(ref(db, `bookProposals/${id}`));
-                if (type === 'meeting')  remove(ref(db, `meetingProposals/${id}`));
-                if (type === 'previous') remove(ref(db, `previousBooks/${id}`));
+                const db = window.firebaseDb;
+                const ref = window.firebaseRef;
+                const remove = window.firebaseRemove;
+
+                if (type === 'book') {
+                    remove(ref(db, `bookProposals/${id}`));
+                } else if (type === 'meeting') {
+                    remove(ref(db, `meetingProposals/${id}`));
+                } else if (type === 'previous') {
+                    remove(ref(db, `previousBooks/${id}`));
+                }
             };
 
             const addBookProposal = () => {
                 if (modalData.title && modalData.author) {
-                    const db = window.firebaseDb; const ref = window.firebaseRef; const push = window.firebasePush; const set = window.firebaseSet;
+                    const db = window.firebaseDb;
+                    const ref = window.firebaseRef;
+                    const push = window.firebasePush;
+                    const set = window.firebaseSet;
+
                     const genres = modalData.genre ? modalData.genre.split(',').map(g => g.trim()).filter(g => g) : ['General'];
-                    const newRef = push(ref(db, 'bookProposals'));
-                    set(newRef, { title: modalData.title, author: modalData.author, genre: genres, cover: modalData.cover || '', votedBy: [], proposedBy: currentUser });
-                    setShowModal(null); setModalData({});
+                    const newBookRef = push(ref(db, 'bookProposals'));
+                    set(newBookRef, {
+                        title: modalData.title,
+                        author: modalData.author,
+                        genre: genres,
+                        cover: modalData.cover || '',
+                        votedBy: [],
+                        proposedBy: currentUser
+                    });
+                    setShowModal(null);
+                    setModalData({});
                 }
             };
 
             const editBookProposal = () => {
                 if (modalData.title && modalData.author) {
-                    const db = window.firebaseDb; const ref = window.firebaseRef; const update = window.firebaseUpdate;
+                    const db = window.firebaseDb;
+                    const ref = window.firebaseRef;
+                    const update = window.firebaseUpdate;
+
                     const genres = modalData.genre ? modalData.genre.split(',').map(g => g.trim()).filter(g => g) : ['General'];
                     const book = bookProposals.find(b => b.id === modalData.id);
-                    update(ref(db, `bookProposals/${modalData.id}`), { title: modalData.title, author: modalData.author, genre: genres, cover: modalData.cover || book.cover });
-                    setShowModal(null); setModalData({});
+                    update(ref(db, `bookProposals/${modalData.id}`), {
+                        title: modalData.title,
+                        author: modalData.author,
+                        genre: genres,
+                        cover: modalData.cover || book.cover
+                    });
+                    setShowModal(null);
+                    setModalData({});
+                }
+            };
+
+            const addMeetingProposal = () => {
+                if (modalData.date && modalData.time) {
+                    const db = window.firebaseDb;
+                    const ref = window.firebaseRef;
+                    const push = window.firebasePush;
+                    const set = window.firebaseSet;
+
+                    const newMeetingRef = push(ref(db, 'meetingProposals'));
+                    set(newMeetingRef, {
+                        date: modalData.date,
+                        time: modalData.time,
+                        votedBy: []
+                    });
+                    setShowModal(null);
+                    setModalData({});
                 }
             };
 
             const changeCurrentBook = () => {
                 if (modalData.title && modalData.author) {
-                    const db = window.firebaseDb; const ref = window.firebaseRef; const push = window.firebasePush; const set = window.firebaseSet;
-                    const newPrevRef = push(ref(db, 'previousBooks'));
-                    set(newPrevRef, { title: currentBook.title, author: currentBook.author, cover: currentBook.cover, genre: currentBook.genre, meetingDate: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) });
-                    set(ref(db, 'currentBook'), { title: modalData.title, author: modalData.author, cover: modalData.cover || '', description: modalData.description || '', genre: modalData.genre || 'General' });
-                    setShowModal(null); setModalData({});
+                    const db = window.firebaseDb;
+                    const ref = window.firebaseRef;
+                    const push = window.firebasePush;
+                    const set = window.firebaseSet;
+
+                    // Move current book to previous
+                    const newPrevBookRef = push(ref(db, 'previousBooks'));
+                    set(newPrevBookRef, {
+                        title: currentBook.title,
+                        author: currentBook.author,
+                        cover: currentBook.cover,
+                        genre: currentBook.genre,
+                        meetingDate: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+                    });
+
+                    // Set new current book
+                    set(ref(db, 'currentBook'), {
+                        title: modalData.title,
+                        author: modalData.author,
+                        cover: modalData.cover || '',
+                        description: modalData.description || '',
+                        genre: modalData.genre || 'General'
+                    });
+                    
+                    setShowModal(null);
+                    setModalData({});
                 }
             };
 
             const updateMeetingDate = () => {
                 if (modalData.meetingDate) {
-                    const db = window.firebaseDb; const ref = window.firebaseRef; const set = window.firebaseSet;
+                    const db = window.firebaseDb;
+                    const ref = window.firebaseRef;
+                    const set = window.firebaseSet;
+
                     set(ref(db, 'nextMeeting'), modalData.meetingDate);
-                    setShowModal(null); setModalData({});
+                    setShowModal(null);
+                    setModalData({});
                 }
             };
 
-            const clearMeetingDate = () => {
-                const db = window.firebaseDb; const ref = window.firebaseRef; const set = window.firebaseSet;
-                set(ref(db, 'nextMeeting'), 'TBD');
-            };
-
-            // ── Meeting proposal voting ──
-            const handleVoteMeeting = (id) => {
-                if (!currentUser) return;
-                const db = window.firebaseDb; const ref = window.firebaseRef; const update = window.firebaseUpdate;
-                const meeting = meetingProposals.find(m => m.id === id);
-                if (!meeting) return;
-                const votedBy = meeting.votedBy || [];
-                const newVotedBy = votedBy.includes(currentUser) ? votedBy.filter(n => n !== currentUser) : [...votedBy, currentUser];
-                update(ref(db, `meetingProposals/${id}`), { votedBy: newVotedBy });
-            };
-
-            // Confirm a meeting date — writes to nextMeeting in Firebase
-            const confirmMeetingDate = (id) => {
-                const meeting = meetingProposals.find(m => m.id === id);
-                if (!meeting) return;
-                const db = window.firebaseDb; const ref = window.firebaseRef; const set = window.firebaseSet;
-                const label = _fmtNice(meeting.date) + ' at ' + _fmtTime(meeting.time) + (meeting.location ? ' · ' + meeting.location : '');
-                set(ref(db, 'nextMeeting'), label);
-            };
-
-            // Submit new meeting proposals (multi-row)
-            const submitMeetingProposals = () => {
-                const invalid = propRows.filter(r => !r.date);
-                if (invalid.length) { setPropError('Please pick a date for every option, or remove the empty ones.'); return; }
-                setPropError('');
-                const db = window.firebaseDb; const ref = window.firebaseRef; const push = window.firebasePush; const set = window.firebaseSet;
-                propRows.forEach(row => {
-                    const newRef = push(ref(db, 'meetingProposals'));
-                    set(newRef, { date: row.date, time: row.time || '19:00', location: row.location.trim(), votedBy: [currentUser] });
-                });
-                setShowModal(null);
-                setPropRows([{ id: 1, date: '', time: '19:00', location: '' }]);
-                setPropRowCounter(1);
-            };
-
-            const addPropRow = () => {
-                const newId = propRowCounter + 1;
-                setPropRowCounter(newId);
-                setPropRows(prev => [...prev, { id: newId, date: '', time: '19:00', location: '' }]);
-            };
-
-            const removePropRow = (id) => {
-                if (propRows.length === 1) return;
-                setPropRows(prev => prev.filter(r => r.id !== id));
-            };
-
-            const updatePropRow = (id, field, value) => {
-                setPropRows(prev => prev.map(r => r.id === id ? { ...r, [field]: value } : r));
-            };
-
-            const removeOutdated = () => {
-                const today = new Date(); today.setHours(0,0,0,0);
-                const db = window.firebaseDb; const ref = window.firebaseRef; const remove = window.firebaseRemove;
-                meetingProposals.forEach(m => {
-                    if (new Date(m.date) < today) remove(ref(db, `meetingProposals/${m.id}`));
-                });
-            };
-
-      const deleteAllMeetingProposals = () => {
-    if (!meetingProposals.length) return;
-    if (window.confirm('Remove all meeting proposals?')) {
-        const db = window.firebaseDb;
-        const ref = window.firebaseRef;
-        const remove = window.firebaseRemove;
-        meetingProposals.forEach(m => {
-            remove(ref(db, `meetingProposals/${m.id}`));
-        });
-    }
-};
-
-            // ── Render guards ──
             if (!currentBook) {
-                return <div className="min-h-screen flex items-center justify-center gingham-bg"><div className="text-2xl" style={{color:'#003631'}}>Loading...</div></div>;
+                return (
+                    <div className="min-h-screen flex items-center justify-center gingham-bg">
+                        <div className="text-2xl" style={{color: '#003631'}}>Loading...</div>
+                    </div>
+                );
             }
 
             const handlePasswordSubmit = (e) => {
                 e.preventDefault();
-                if (passwordInput === CORRECT_PASSWORD) { setIsAuthenticated(true); setPasswordError(''); }
-                else { setPasswordError('Incorrect password. Please try again.'); setPasswordInput(''); }
+                if (passwordInput === CORRECT_PASSWORD) {
+                    setIsAuthenticated(true);
+                    setPasswordError('');
+                } else {
+                    setPasswordError('Incorrect password. Please try again.');
+                    setPasswordInput('');
+                }
             };
 
+            // Password screen
             if (!isAuthenticated) {
                 return (
-                    <div className="min-h-screen flex items-center justify-center p-4" style={{background:'linear-gradient(to bottom right, #FFEDA8, #FFF4CC)'}}>
+                    <div className="min-h-screen flex items-center justify-center p-4" style={{background: 'linear-gradient(to bottom right, #FFEDA8, #FFF4CC)'}}>
                         <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full">
                             <div className="text-center mb-8">
                                 <div className="text-6xl mb-4">📚</div>
-                                <h1 className="text-3xl font-bold mb-2 caslon-heading" style={{color:'#003631'}}>Cozy Book Club</h1>
+                                <h1 className="text-3xl font-bold mb-2 caslon-heading" style={{color: '#003631'}}>Cozy Book Club</h1>
                                 <p className="text-gray-600">Enter password to continue</p>
                             </div>
                             <form onSubmit={handlePasswordSubmit} className="space-y-4">
                                 <div>
-                                    <input type="password" value={passwordInput} onChange={e => setPasswordInput(e.target.value)}
-                                        placeholder="Password" className="w-full py-3 px-4 rounded-xl border-2 border-gray-300 focus:outline-none" autoFocus />
-                                    {passwordError && <p className="text-red-600 text-sm mt-2">{passwordError}</p>}
+                                    <input
+                                        type="password"
+                                        value={passwordInput}
+                                        onChange={(e) => setPasswordInput(e.target.value)}
+                                        placeholder="Password"
+                                        className="w-full py-3 px-4 rounded-xl border-2 border-gray-300 focus:border-opacity-50 focus:outline-none transition-colors"
+                                        style={{borderColor: passwordError ? '#dc2626' : undefined, focusBorderColor: '#003631'}}
+                                        autoFocus
+                                    />
+                                    {passwordError && (
+                                        <p className="text-red-600 text-sm mt-2">{passwordError}</p>
+                                    )}
                                 </div>
-                                <button type="submit" className="w-full py-3 px-4 rounded-xl text-white font-medium" style={{backgroundColor:'#003631'}}
-                                    onMouseOver={e=>e.currentTarget.style.backgroundColor='#004d45'} onMouseOut={e=>e.currentTarget.style.backgroundColor='#003631'}>
+                                <button
+                                    type="submit"
+                                    className="w-full py-3 px-4 rounded-xl transition-all transform hover:scale-105 font-medium text-white"
+                                    style={{backgroundColor: '#003631'}}
+                                    onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#004d45'}
+                                    onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#003631'}
+                                >
                                     Enter
                                 </button>
                             </form>
@@ -406,21 +441,26 @@
                 );
             }
 
+            // User selection screen
             if (showUserSelect) {
                 return (
-                    <div className="min-h-screen flex items-center justify-center p-4" style={{background:'linear-gradient(to bottom right, #FFEDA8, #FFF4CC)'}}>
+                    <div className="min-h-screen flex items-center justify-center p-4" style={{background: 'linear-gradient(to bottom right, #FFEDA8, #FFF4CC)'}}>
                         <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full">
                             <div className="text-center mb-8">
                                 <div className="text-6xl mb-4">📚</div>
-                                <h1 className="text-3xl font-bold mb-2 caslon-heading" style={{color:'#003631'}}>Cozy Book Club</h1>
+                                <h1 className="text-3xl font-bold mb-2 caslon-heading" style={{color: '#003631'}}>Cozy Book Club</h1>
                                 <p className="text-gray-600">Select your name to continue</p>
                             </div>
                             <div className="space-y-3">
                                 {clubMembers.map(member => (
-                                    <button key={member} onClick={() => { setCurrentUser(member); setShowUserSelect(false); }}
-                                        className="w-full py-3 px-4 rounded-xl text-white font-medium transition-all transform hover:scale-105"
-                                        style={{backgroundColor:'#003631'}}
-                                        onMouseOver={e=>e.currentTarget.style.backgroundColor='#004d45'} onMouseOut={e=>e.currentTarget.style.backgroundColor='#003631'}>
+                                    <button
+                                        key={member}
+                                        onClick={() => { setCurrentUser(member); setShowUserSelect(false); }}
+                                        className="w-full py-3 px-4 rounded-xl transition-all transform hover:scale-105 font-medium text-white"
+                                        style={{backgroundColor: '#003631'}}
+                                        onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#004d45'}
+                                        onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#003631'}
+                                    >
                                         {member}
                                     </button>
                                 ))}
@@ -430,101 +470,109 @@
                 );
             }
 
-            // ── Meetings tab helpers ──
-            const todayDate = new Date(); todayDate.setHours(0,0,0,0);
-            const maxVotes = meetingProposals.length ? Math.max(...meetingProposals.map(m => (m.votedBy||[]).length)) : 0;
-            const sortedMeetings = [...meetingProposals].sort((a,b) =>
-                (b.votedBy||[]).length - (a.votedBy||[]).length || (a.date||'').localeCompare(b.date||'') || (a.time||'').localeCompare(b.time||'')
-            );
-
             return (
-                <div className="min-h-screen" style={{background:'linear-gradient(to bottom right, #FFEDA8, #FFF4CC)'}}>
+                <div className="min-h-screen" style={{background: 'linear-gradient(to bottom right, #FFEDA8, #FFF4CC)'}}>
                     <div className="max-w-6xl mx-auto px-4 py-8">
                         <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
-
-                            {/* Header */}
-                            <div className="p-6 sm:p-8 text-white" style={{background:'linear-gradient(to right, #003631, #004d45)'}}>
+                            <div className="p-6 sm:p-8 text-white" style={{background: 'linear-gradient(to right, #003631, #004d45)'}}>
                                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
                                     <div>
                                         <h1 className="text-3xl sm:text-4xl font-bold mb-2 caslon-heading">📚 Cozy Book Club</h1>
-                                        <p style={{color:'#FFEDA8'}}>Welcome back, {currentUser}!</p>
+                                        <p style={{color: '#FFEDA8'}}>Welcome back, {currentUser}!</p>
                                     </div>
-                                    <button onClick={() => setShowUserSelect(true)} className="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-2 rounded-lg transition-colors w-fit">
+                                    <button 
+                                        onClick={() => setShowUserSelect(true)}
+                                        className="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-2 rounded-lg transition-colors w-fit"
+                                    >
                                         Switch User
                                     </button>
                                 </div>
                             </div>
 
-                            {/* Tabs */}
                             <div className="flex border-b border-gray-200 overflow-x-auto">
-                                {['current','proposals','meetings','history'].map(tab => (
-                                    <button key={tab} onClick={() => changeTab(tab)}
-                                        className={`flex-1 min-w-fit py-4 px-4 sm:px-6 font-medium transition-colors whitespace-nowrap ${activeTab===tab ? 'border-b-2' : 'text-gray-600 hover:bg-gray-50'}`}
-                                        style={activeTab===tab ? {backgroundColor:'#FFEDA8',color:'#003631',borderColor:'#003631'} : {}}>
+                                {['current', 'proposals', 'meetings', 'history'].map(tab => (
+                                    <button
+                                        key={tab}
+                                        onClick={() => changeTab(tab)}
+                                        className={`flex-1 min-w-fit py-4 px-4 sm:px-6 font-medium transition-colors whitespace-nowrap ${
+                                            activeTab === tab
+                                                ? 'border-b-2'
+                                                : 'text-gray-600 hover:bg-gray-50'
+                                        }`}
+                                        style={activeTab === tab ? {backgroundColor: '#FFEDA8', color: '#003631', borderColor: '#003631'} : {}}
+                                    >
                                         {tabLabels[tab]}
                                     </button>
                                 ))}
                             </div>
 
-                            {/* ══ CURRENT TAB ══ */}
                             {activeTab === 'current' && (
                                 <div className="p-8">
-                                    <h2 className="text-2xl font-bold mb-6 caslon-heading" style={{color:'#003631'}}>Current Read</h2>
-                                    <div className="rounded-2xl p-8" style={{background:'linear-gradient(to bottom right, #FFEDA8, #FFF4CC)'}}>
+                                    <h2 className="text-2xl font-bold mb-6 caslon-heading" style={{color: '#003631'}}>Current Read</h2>
+                                    <div className="rounded-2xl p-8" style={{background: 'linear-gradient(to bottom right, #FFEDA8, #FFF4CC)'}}>
                                         <div className="flex flex-col items-center">
                                             <img src={currentBook.cover} alt={currentBook.title} className="w-48 h-72 object-cover rounded-xl shadow-lg mb-6" />
                                             <div className="w-full text-center">
-                                                <h3 className="text-3xl font-bold mb-2 caslon-heading" style={{color:'#003631'}}>{currentBook.title}</h3>
+                                                <h3 className="text-3xl font-bold mb-2 caslon-heading" style={{color: '#003631'}}>{currentBook.title}</h3>
                                                 <p className="text-xl text-gray-700 mb-3">by {currentBook.author}</p>
-                                                <span className="inline-block px-3 py-1 rounded-full text-sm font-medium mb-4 text-white" style={{backgroundColor:'#003631'}}>{currentBook.genre}</span>
+                                                <span className="inline-block px-3 py-1 rounded-full text-sm font-medium mb-4 text-white" style={{backgroundColor: '#003631'}}>{currentBook.genre}</span>
                                                 <p className="text-gray-600 leading-relaxed mb-6">{currentBook.description}</p>
-                                                <button onClick={() => setShowModal('changeBook')} className="px-4 py-2 rounded-lg text-white transition-colors"
-                                                    style={{backgroundColor:'#003631'}} onMouseOver={e=>e.currentTarget.style.backgroundColor='#004d45'} onMouseOut={e=>e.currentTarget.style.backgroundColor='#003631'}>
+                                                <button
+                                                    onClick={() => setShowModal('changeBook')}
+                                                    className="px-4 py-2 rounded-lg transition-colors text-white"
+                                                    style={{backgroundColor: '#003631'}}
+                                                    onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#004d45'}
+                                                    onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#003631'}
+                                                >
                                                     Change Book
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
 
-                                    {/* Next Meeting */}
                                     <div className="mt-6">
-                                        <h2 className="text-2xl font-bold mb-4 caslon-heading" style={{color:'#003631'}}>Next Meeting</h2>
-                                        <div className="rounded-2xl p-6 text-center" style={{background:'linear-gradient(to bottom right, #FFF4CC, #FFFAEB)'}}>
+                                        <h2 className="text-2xl font-bold mb-4 caslon-heading" style={{color: '#003631'}}>Next Meeting</h2>
+                                        <div className="rounded-2xl p-6 text-center" style={{background: 'linear-gradient(to bottom right, #FFF4CC, #FFFAEB)'}}>
                                             <div className="text-5xl mb-3">✨</div>
-                                            <p className="text-2xl font-bold mb-4" style={{color:'#003631'}}>{nextMeeting}</p>
-                                            <div className="flex gap-3 justify-center flex-wrap">
-                                                <button onClick={() => setShowModal('changeMeeting')} className="px-4 py-2 rounded-lg text-white transition-colors"
-                                                    style={{backgroundColor:'#003631'}} onMouseOver={e=>e.currentTarget.style.backgroundColor='#004d45'} onMouseOut={e=>e.currentTarget.style.backgroundColor='#003631'}>
-                                                    Edit Meeting
-                                                </button>
-                                                {nextMeeting !== 'TBD' && (
-                                                    <button onClick={clearMeetingDate} className="px-4 py-2 rounded-lg transition-colors"
-                                                        style={{backgroundColor:'white', color:'#003631', border:'2px solid #003631'}}
-                                                        onMouseOver={e=>e.currentTarget.style.backgroundColor='#f0faf8'} onMouseOut={e=>e.currentTarget.style.backgroundColor='white'}>
-                                                        Reset to TBD
-                                                    </button>
-                                                )}
-                                            </div>
+                                            <p className="text-2xl font-bold mb-4" style={{color: '#003631'}}>{nextMeeting}</p>
+                                            <button
+                                                onClick={() => setShowModal('changeMeeting')}
+                                                className="px-4 py-2 rounded-lg transition-colors text-white"
+                                                style={{backgroundColor: '#003631'}}
+                                                onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#004d45'}
+                                                onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#003631'}
+                                            >
+                                                Update Meeting
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             )}
 
-                            {/* ══ PROPOSALS TAB ══ */}
                             {activeTab === 'proposals' && (
                                 <div className="p-8">
                                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
-                                        <h2 className="text-2xl font-bold caslon-heading" style={{color:'#003631'}}>Book Proposals</h2>
-                                        <button onClick={() => setShowModal('book')} className="w-full sm:w-auto px-4 py-2 rounded-lg text-white transition-colors"
-                                            style={{backgroundColor:'#003631'}} onMouseOver={e=>e.currentTarget.style.backgroundColor='#004d45'} onMouseOut={e=>e.currentTarget.style.backgroundColor='#003631'}>
+                                        <h2 className="text-2xl font-bold caslon-heading" style={{color: '#003631'}}>Book Proposals</h2>
+                                        <button
+                                            onClick={() => setShowModal('book')}
+                                            className="w-full sm:w-auto px-4 py-2 rounded-lg transition-colors text-white"
+                                            style={{backgroundColor: '#003631'}}
+                                            onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#004d45'}
+                                            onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#003631'}
+                                        >
                                             + Propose Book
                                         </button>
                                     </div>
-
+                                    
                                     <div className="mb-6 flex flex-col sm:flex-row gap-4 flex-wrap">
                                         <div className="w-full sm:w-auto">
                                             <label className="text-sm text-gray-600 mb-1 block">Sort by:</label>
-                                            <select value={bookSort} onChange={e=>setBookSort(e.target.value)} className="w-full px-4 py-2 border rounded-lg focus:outline-none" style={{borderColor:'#FFEDA8'}}>
+                                            <select 
+                                                value={bookSort} 
+                                                onChange={(e) => setBookSort(e.target.value)}
+                                                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2"
+                                                style={{borderColor: '#FFEDA8'}}
+                                            >
                                                 <option value="votes">Most Votes</option>
                                                 <option value="title">Title (A-Z)</option>
                                                 <option value="author">Author (A-Z)</option>
@@ -534,7 +582,12 @@
                                         </div>
                                         <div className="w-full sm:w-auto">
                                             <label className="text-sm text-gray-600 mb-1 block">Filter by genre:</label>
-                                            <select value={genreFilter} onChange={e=>setGenreFilter(e.target.value)} className="w-full px-4 py-2 border rounded-lg focus:outline-none" style={{borderColor:'#FFEDA8'}}>
+                                            <select 
+                                                value={genreFilter} 
+                                                onChange={(e) => setGenreFilter(e.target.value)}
+                                                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2"
+                                                style={{borderColor: '#FFEDA8'}}
+                                            >
                                                 <option value="all">All Genres</option>
                                                 <option value="Fiction">Fiction</option>
                                                 <option value="Science Fiction">Science Fiction</option>
@@ -544,47 +597,92 @@
                                         </div>
                                         <div className="w-full sm:w-auto">
                                             <label className="text-sm text-gray-600 mb-1 block">Filter by proposer:</label>
-                                            <select value={proposerFilter} onChange={e=>setProposerFilter(e.target.value)} className="w-full px-4 py-2 border rounded-lg focus:outline-none" style={{borderColor:'#FFEDA8'}}>
+                                            <select 
+                                                value={proposerFilter} 
+                                                onChange={(e) => setProposerFilter(e.target.value)}
+                                                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2"
+                                                style={{borderColor: '#FFEDA8'}}
+                                            >
                                                 <option value="all">All Members</option>
-                                                {clubMembers.map(m => <option key={m} value={m}>{m}</option>)}
+                                                <option value="Sarah">Sarah</option>
+                                                <option value="Caitlin">Caitlin</option>
+                                                <option value="Laura">Laura</option>
+                                                <option value="Sam">Sam</option>
+                                                <option value="Beth">Beth</option>
                                             </select>
                                         </div>
                                     </div>
-
+                                    
                                     <div className="grid gap-4">
                                         {bookProposals
-                                            .filter(book => genreFilter === 'all' || (Array.isArray(book.genre) ? book.genre : [book.genre]).includes(genreFilter))
+                                            .filter(book => {
+                                                if (genreFilter === 'all') return true;
+                                                const genres = Array.isArray(book.genre) ? book.genre : [book.genre];
+                                                return genres.includes(genreFilter);
+                                            })
                                             .filter(book => proposerFilter === 'all' || book.proposedBy === proposerFilter)
-                                            .sort((a,b) => {
-                                                if (bookSort==='votes')    return (b.votedBy||[]).length - (a.votedBy||[]).length;
-                                                if (bookSort==='title')    return a.title.localeCompare(b.title);
-                                                if (bookSort==='author')   return a.author.localeCompare(b.author);
-                                                if (bookSort==='genre')    return (Array.isArray(a.genre)?a.genre[0]:a.genre).localeCompare(Array.isArray(b.genre)?b.genre[0]:b.genre);
-                                                if (bookSort==='proposer') return a.proposedBy.localeCompare(b.proposedBy);
+                                            .sort((a, b) => {
+                                                if (bookSort === 'votes') return (b.votedBy || []).length - (a.votedBy || []).length;
+                                                if (bookSort === 'title') return a.title.localeCompare(b.title);
+                                                if (bookSort === 'author') return a.author.localeCompare(b.author);
+                                                if (bookSort === 'genre') {
+                                                    const aGenre = Array.isArray(a.genre) ? a.genre[0] : a.genre;
+                                                    const bGenre = Array.isArray(b.genre) ? b.genre[0] : b.genre;
+                                                    return aGenre.localeCompare(bGenre);
+                                                }
+                                                if (bookSort === 'proposer') return a.proposedBy.localeCompare(b.proposedBy);
                                                 return 0;
                                             })
                                             .map(book => (
-                                            <div key={book.id} className="rounded-xl p-6 flex flex-col sm:flex-row gap-6 items-start" style={{background:'linear-gradient(to right, #FFEDA8, #FFF4CC)'}}>
+                                            <div key={book.id} className="rounded-xl p-6 flex flex-col sm:flex-row gap-6 items-start" style={{background: 'linear-gradient(to right, #FFEDA8, #FFF4CC)'}}>
                                                 {book.cover && <img src={book.cover} alt={book.title} className="w-32 h-48 sm:w-24 sm:h-36 object-cover rounded-lg shadow mx-auto sm:mx-0" />}
                                                 <div className="flex-1 w-full">
-                                                    <h3 className="text-xl font-bold caslon-heading" style={{color:'#003631'}}>{book.title}</h3>
+                                                    <h3 className="text-xl font-bold caslon-heading" style={{color: '#003631'}}>{book.title}</h3>
                                                     <p className="text-gray-700 mb-2">by {book.author}</p>
                                                     <div className="flex items-center gap-2 mb-3 flex-wrap">
-                                                        {(Array.isArray(book.genre)?book.genre:[book.genre]).map((g,i) => (
-                                                            <span key={i} className="px-2 py-1 rounded text-sm text-white" style={{backgroundColor:'#003631'}}>{g}</span>
+                                                        {(Array.isArray(book.genre) ? book.genre : [book.genre]).map((g, idx) => (
+                                                            <span key={idx} className="px-2 py-1 rounded text-sm text-white" style={{backgroundColor: '#003631'}}>{g}</span>
                                                         ))}
                                                         <span className="text-sm text-gray-600">Proposed by {book.proposedBy}</span>
                                                     </div>
                                                     <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
-                                                        <button onClick={() => handleVoteBook(book.id)}
-                                                            className={`px-4 py-2 rounded-lg transition-colors ${(book.votedBy||[]).includes(currentUser) ? 'text-white' : 'bg-white border-2 hover:bg-gray-50'}`}
-                                                            style={(book.votedBy||[]).includes(currentUser) ? {backgroundColor:'#003631'} : {borderColor:'#003631',color:'#003631'}}>
-                                                            {(book.votedBy||[]).includes(currentUser) ? '✓ Voted' : 'Vote'} ({(book.votedBy||[]).length})
+                                                        <button
+                                                            onClick={() => handleVote('book', book.id)}
+                                                            className={`px-4 py-2 rounded-lg transition-colors ${
+                                                                (book.votedBy || []).includes(currentUser)
+                                                                    ? 'text-white'
+                                                                    : 'bg-white border-2 hover:bg-gray-50'
+                                                            }`}
+                                                            style={(book.votedBy || []).includes(currentUser) ? {backgroundColor: '#003631'} : {borderColor: '#003631', color: '#003631'}}
+                                                        >
+                                                            {(book.votedBy || []).includes(currentUser) ? '✓ Voted' : 'Vote'} ({(book.votedBy || []).length})
                                                         </button>
-                                                        <span className="text-sm text-gray-600">{(book.votedBy||[]).length > 0 && `Voted by: ${(book.votedBy||[]).join(', ')}`}</span>
+                                                        <span className="text-sm text-gray-600">
+                                                            {(book.votedBy || []).length > 0 && `Voted by: ${(book.votedBy || []).join(', ')}`}
+                                                        </span>
                                                         <div className="flex gap-3 sm:ml-auto">
-                                                            <button onClick={() => { setModalData({ id:book.id, title:book.title, author:book.author, genre:Array.isArray(book.genre)?book.genre.join(', '):book.genre, cover:book.cover }); setShowModal('editBook'); }} className="text-blue-600 hover:text-blue-800">Edit</button>
-                                                            <button onClick={() => handleDelete('book', book.id)} className="text-red-500 hover:text-red-700">Delete</button>
+                                                            <button
+                                                                onClick={() => {
+                                                                    const genreStr = Array.isArray(book.genre) ? book.genre.join(', ') : book.genre;
+                                                                    setModalData({
+                                                                        id: book.id,
+                                                                        title: book.title,
+                                                                        author: book.author,
+                                                                        genre: genreStr,
+                                                                        cover: book.cover
+                                                                    });
+                                                                    setShowModal('editBook');
+                                                                }}
+                                                                className="text-blue-600 hover:text-blue-800"
+                                                            >
+                                                                Edit
+                                                            </button>
+                                                            <button
+                                                                onClick={() => handleDelete('book', book.id)}
+                                                                className="text-red-500 hover:text-red-700"
+                                                            >
+                                                                Delete
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -594,128 +692,76 @@
                                 </div>
                             )}
 
-                            {/* ══ MEETINGS TAB ══ */}
                             {activeTab === 'meetings' && (
                                 <div className="p-8">
-                                    <h2 className="text-2xl font-bold mb-6 caslon-heading" style={{color:'#003631'}}>Meeting Schedule</h2>
-
-                                    {/* Action buttons */}
-                                    <div className="flex gap-3 flex-wrap mb-6">
-                                        <button onClick={() => { setPropRows([{id:1,date:'',time:'19:00',location:''}]); setPropRowCounter(1); setPropError(''); setShowModal('meeting'); }}
-                                            className="px-4 py-2 rounded-lg text-white transition-colors"
-                                            style={{backgroundColor:'#003631'}} onMouseOver={e=>e.currentTarget.style.backgroundColor='#004d45'} onMouseOut={e=>e.currentTarget.style.backgroundColor='#003631'}>
-                                            + Propose dates
-                                        </button>
-                                        <button onClick={removeOutdated} className="px-4 py-2 rounded-lg transition-colors"
-                                            style={{backgroundColor:'white',color:'#003631',border:'2px solid #003631'}}
-                                            title="Removes proposals whose dates have already passed"
-                                            onMouseOver={e=>e.currentTarget.style.backgroundColor='#f0faf8'} onMouseOut={e=>e.currentTarget.style.backgroundColor='white'}>
-                                            🗑 Remove Outdated
-                                        </button>
-                                        <button onClick={deleteAllMeetingProposals} className="px-4 py-2 rounded-lg transition-colors"
-                                            style={{backgroundColor:'white',color:'#c00',border:'2px solid #c00'}}
-                                            onMouseOver={e=>e.currentTarget.style.backgroundColor='#fff5f5'} onMouseOut={e=>e.currentTarget.style.backgroundColor='white'}>
-                                            ✕ Delete All
+                                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+                                        <h2 className="text-2xl font-bold caslon-heading" style={{color: '#003631'}}>Meeting Proposals</h2>
+                                        <button
+                                            onClick={() => setShowModal('meeting')}
+                                            className="w-full sm:w-auto px-4 py-2 rounded-lg transition-colors text-white"
+                                            style={{backgroundColor: '#003631'}}
+                                            onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#004d45'}
+                                            onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#003631'}
+                                        >
+                                            + Propose Meeting
                                         </button>
                                     </div>
-
-                                    {/* Poll list */}
-                                    {!meetingProposals.length ? (
-                                        <p style={{color:'#bbb',textAlign:'center',padding:'30px 0',fontSize:'1.05rem'}}>No dates proposed yet. Be the first!</p>
-                                    ) : (
-                                        <div>
-                                            {sortedMeetings.map(meeting => {
-                                                const isWinner  = (meeting.votedBy||[]).length === maxVotes && maxVotes > 0;
-                                                const hasVoted  = (meeting.votedBy||[]).includes(currentUser);
-                                                const isPast    = meeting.date && new Date(meeting.date) < todayDate;
-                                                const pct       = clubMembers.length ? Math.round((meeting.votedBy||[]).length / clubMembers.length * 100) : 0;
-                                                const isConfirmed = meeting.date && nextMeeting.startsWith(_fmtNice(meeting.date));
-
-                                                const votedAvatars  = (meeting.votedBy||[]).map(n => `<span class="avatar" title="${n}">${n[0]}</span>`).join('');
-                                                const absentAvatars = clubMembers.filter(m => !(meeting.votedBy||[]).includes(m)).map(n => `<span class="avatar" title="${n} (hasn't voted)" style="background:#e8e8e8;color:#bbb;">${n[0]}</span>`).join('');
-
-                                                return (
-                                                    <div key={meeting.id} className={`poll-card fade-in${isWinner && !isPast ? ' winner' : ''}`} style={{opacity: isPast ? 0.52 : 1}}>
-                                                        {isWinner && !isPast && <span className="winner-badge">✨ Most votes</span>}
-
-                                                        <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',flexWrap:'wrap',gap:'8px'}}>
-                                                            <div>
-                                                                <div className="caslon-heading" style={{fontSize:'1.12rem',color:'#003631'}}>
-                                                                    {meeting.date ? _fmtNice(meeting.date) : meeting.date}
-                                                                    {isPast && <span style={{fontSize:'0.68rem',background:'#f5f5f5',color:'#bbb',padding:'2px 8px',borderRadius:'20px',marginLeft:'6px',fontStyle:'normal'}}>Past</span>}
-                                                                </div>
-                                                                <div style={{fontSize:'0.88rem',color:'#777',marginTop:'3px',display:'flex',flexWrap:'wrap',gap:'6px',alignItems:'center'}}>
-                                                                    <span>⏰ {_fmtTime(meeting.time)}</span>
-                                                                    {meeting.location && <><span style={{color:'#ddd'}}>·</span><span>📍 {meeting.location}</span></>}
-                                                                </div>
-                                                            </div>
-
-                                                            {!isPast && (
-                                                                <div style={{display:'flex',gap:'8px',flexShrink:0,flexWrap:'wrap',alignItems:'center'}}>
-                                                                    <button onClick={() => handleVoteMeeting(meeting.id)}
-                                                                        className={`px-3 py-1 rounded-lg text-sm transition-colors ${hasVoted ? 'text-white' : 'bg-white border-2 hover:bg-gray-50'}`}
-                                                                        style={hasVoted ? {backgroundColor:'#003631'} : {borderColor:'#003631',color:'#003631'}}>
-                                                                        {hasVoted ? "✓ I'm in" : 'I can make it'}
-                                                                    </button>
-                                                                    {!isConfirmed && (
-                                                                        <button onClick={() => confirmMeetingDate(meeting.id)}
-                                                                            className="px-3 py-1 rounded-lg text-sm transition-colors"
-                                                                            style={{backgroundColor:'#FFEDA8',color:'#003631',border:'2px solid #003631',fontWeight:'600'}}
-                                                                            onMouseOver={e=>e.currentTarget.style.backgroundColor='#FFE070'} onMouseOut={e=>e.currentTarget.style.backgroundColor='#FFEDA8'}>
-                                                                            Set as meeting ✓
-                                                                        </button>
-                                                                    )}
-                                                                    {isConfirmed && <span style={{fontSize:'0.8rem',color:'#003631',fontWeight:'600',padding:'4px 8px'}}>📌 Confirmed</span>}
-                                                                </div>
-                                                            )}
-                                                        </div>
-
-                                                        {!isPast && (
-                                                            <>
-                                                                <div className="poll-track">
-                                                                    <div className={`poll-fill ${hasVoted ? 'my-vote' : 'others'}`} style={{width:`${pct}%`}}>
-                                                                        {pct > 18 && <span style={{fontSize:'0.76rem',color:hasVoted?'#FFEDA8':'#005548',fontWeight:'600'}}>{(meeting.votedBy||[]).length} {(meeting.votedBy||[]).length===1?'vote':'votes'}</span>}
-                                                                    </div>
-                                                                    <span className="poll-pct">{pct}%</span>
-                                                                </div>
-                                                                <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginTop:'10px',flexWrap:'wrap',gap:'6px'}}>
-                                                                    <div style={{display:'flex',alignItems:'center'}}>
-                                                                        <div style={{display:'flex'}} dangerouslySetInnerHTML={{__html: votedAvatars}} />
-                                                                        {(meeting.votedBy||[]).length > 0 && absentAvatars && <><span style={{fontSize:'0.7rem',color:'#ddd',margin:'0 8px'}}>|</span><div style={{display:'flex',opacity:0.4}} dangerouslySetInnerHTML={{__html: absentAvatars}} /></>}
-                                                                        {!(meeting.votedBy||[]).length && <span style={{fontSize:'0.82rem',color:'#ccc'}}>No votes yet</span>}
-                                                                    </div>
-                                                                    <button onClick={() => handleDelete('meeting', meeting.id)} className="text-red-400 hover:text-red-600 text-sm">Remove</button>
-                                                                </div>
-                                                            </>
-                                                        )}
-                                                        {isPast && (
-                                                            <div style={{textAlign:'right',marginTop:'8px'}}>
-                                                                <button onClick={() => handleDelete('meeting', meeting.id)} className="text-red-400 hover:text-red-600 text-sm">Remove</button>
-                                                            </div>
-                                                        )}
+                                    <div className="grid gap-4">
+                                        {meetingProposals.map(meeting => (
+                                            <div key={meeting.id} className="rounded-xl p-6" style={{background: 'linear-gradient(to right, #FFEDA8, #FFF4CC)'}}>
+                                                <div className="flex flex-col gap-4">
+                                                    <div>
+                                                        <h3 className="text-xl font-bold caslon-heading" style={{color: '#003631'}}>{meeting.date}</h3>
+                                                        <p className="text-gray-700">{meeting.time}</p>
                                                     </div>
-                                                );
-                                            })}
-                                        </div>
-                                    )}
+                                                    <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+                                                        <button
+                                                            onClick={() => handleVote('meeting', meeting.id)}
+                                                            className={`px-4 py-2 rounded-lg transition-colors ${
+                                                                (meeting.votedBy || []).includes(currentUser)
+                                                                    ? 'text-white'
+                                                                    : 'bg-white border-2 hover:bg-gray-50'
+                                                            }`}
+                                                            style={(meeting.votedBy || []).includes(currentUser) ? {backgroundColor: '#003631'} : {borderColor: '#003631', color: '#003631'}}
+                                                        >
+                                                            {(meeting.votedBy || []).includes(currentUser) ? '✓ Voted' : 'Vote'} ({(meeting.votedBy || []).length})
+                                                        </button>
+                                                        <span className="text-sm text-gray-600">
+                                                            {(meeting.votedBy || []).length > 0 && `${(meeting.votedBy || []).join(', ')}`}
+                                                        </span>
+                                                        <button
+                                                            onClick={() => handleDelete('meeting', meeting.id)}
+                                                            className="text-red-500 hover:text-red-700 sm:ml-auto"
+                                                        >
+                                                            Delete
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
                             )}
 
-                            {/* ══ HISTORY TAB ══ */}
                             {activeTab === 'history' && (
                                 <div className="p-8">
-                                    <h2 className="text-2xl font-bold mb-6 caslon-heading" style={{color:'#003631'}}>Past Reads</h2>
+                                    <h2 className="text-2xl font-bold mb-6 caslon-heading" style={{color: '#003631'}}>Past Reads</h2>
                                     <div className="grid gap-4">
-                                        {[...previousBooks].sort((a, b) => new Date(b.meetingDate) - new Date(a.meetingDate)).map(book => (
-                                            <div key={book.id} className="rounded-xl p-6 flex flex-col sm:flex-row gap-6 items-start" style={{background:'linear-gradient(to right, #FFEDA8, #FFF4CC)'}}>
+                                        {previousBooks.map(book => (
+                                            <div key={book.id} className="rounded-xl p-6 flex flex-col sm:flex-row gap-6 items-start" style={{background: 'linear-gradient(to right, #FFEDA8, #FFF4CC)'}}>
                                                 <img src={book.cover} alt={book.title} className="w-32 h-48 sm:w-24 sm:h-36 object-cover rounded-lg shadow mx-auto sm:mx-0" />
                                                 <div className="flex-1 w-full">
-                                                    <h3 className="text-xl font-bold caslon-heading" style={{color:'#003631'}}>{book.title}</h3>
+                                                    <h3 className="text-xl font-bold caslon-heading" style={{color: '#003631'}}>{book.title}</h3>
                                                     <p className="text-gray-700 mb-2">by {book.author}</p>
                                                     <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
-                                                        <span className="px-2 py-1 rounded text-sm text-white w-fit" style={{backgroundColor:'#003631'}}>{book.genre}</span>
+                                                        <span className="px-2 py-1 rounded text-sm text-white w-fit" style={{backgroundColor: '#003631'}}>{book.genre}</span>
                                                         <span className="text-sm text-gray-600">Read on {book.meetingDate}</span>
-                                                        <button     onClick={() => { setModalData({ id: book.id, title: book.title, author: book.author, genre: book.genre, cover: book.cover, meetingDate: book.meetingDate }); setShowModal('editPrevious'); }}     className="text-blue-600 hover:text-blue-800 w-fit">Edit</button> <button onClick={() => handleDelete('previous', book.id)} className="text-red-500 hover:text-red-700 sm:ml-auto w-fit">Delete</button>
+                                                        <button
+                                                            onClick={() => handleDelete('previous', book.id)}
+                                                            className="text-red-500 hover:text-red-700 sm:ml-auto w-fit"
+                                                        >
+                                                            Delete
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -725,233 +771,118 @@
                             )}
                         </div>
 
-                        {/* ══ MODALS ══ */}
-
-                        {/* Propose Book */}
                         {showModal === 'book' && (
                             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
                                 <div className="bg-white rounded-2xl p-6 max-w-md w-full">
                                     <div className="flex justify-between items-center mb-4">
-                                        <h3 className="text-xl font-semibold caslon-heading" style={{color:'#003631'}}>Propose a Book</h3>
+                                        <h3 className="text-xl font-semibold caslon-heading" style={{color: '#003631'}}>Propose a Book</h3>
                                         <button onClick={() => { setShowModal(null); setModalData({}); }} className="text-gray-400 hover:text-gray-600">✕</button>
                                     </div>
                                     <div className="space-y-4">
-                                        <input type="text" placeholder="Book Title" className="w-full px-4 py-2 border rounded-lg focus:outline-none" style={{borderColor:'#FFEDA8'}} onChange={e=>setModalData({...modalData,title:e.target.value})} />
-                                        <input type="text" placeholder="Author" className="w-full px-4 py-2 border rounded-lg focus:outline-none" style={{borderColor:'#FFEDA8'}} onChange={e=>setModalData({...modalData,author:e.target.value})} />
-                                        <input type="text" placeholder="Genres (comma-separated)" className="w-full px-4 py-2 border rounded-lg focus:outline-none" style={{borderColor:'#FFEDA8'}} onChange={e=>setModalData({...modalData,genre:e.target.value})} />
-                                        <input type="text" placeholder="Cover Image URL (optional)" className="w-full px-4 py-2 border rounded-lg focus:outline-none" style={{borderColor:'#FFEDA8'}} onChange={e=>setModalData({...modalData,cover:e.target.value})} />
-                                        <button onClick={addBookProposal} className="w-full text-white py-2 rounded-lg" style={{backgroundColor:'#003631'}} onMouseOver={e=>e.currentTarget.style.backgroundColor='#004d45'} onMouseOut={e=>e.currentTarget.style.backgroundColor='#003631'}>Add Book</button>
+                                        <input type="text" placeholder="Book Title" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2" style={{borderColor: '#FFEDA8'}}
+                                            onChange={(e) => setModalData({...modalData, title: e.target.value})} />
+                                        <input type="text" placeholder="Author" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2" style={{borderColor: '#FFEDA8'}}
+                                            onChange={(e) => setModalData({...modalData, author: e.target.value})} />
+                                        <input type="text" placeholder="Genres (comma-separated, e.g. Fiction, Classic)" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2" style={{borderColor: '#FFEDA8'}}
+                                            onChange={(e) => setModalData({...modalData, genre: e.target.value})} />
+                                        <input type="text" placeholder="Cover Image URL (optional)" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2" style={{borderColor: '#FFEDA8'}}
+                                            onChange={(e) => setModalData({...modalData, cover: e.target.value})} />
+                                        <button onClick={addBookProposal} className="w-full text-white py-2 rounded-lg transition-colors" style={{backgroundColor: '#003631'}}
+                                            onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#004d45'}
+                                            onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#003631'}>Add Book</button>
                                     </div>
                                 </div>
                             </div>
                         )}
 
-                        {/* Edit Book */}
                         {showModal === 'editBook' && (
                             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
                                 <div className="bg-white rounded-2xl p-6 max-w-md w-full">
                                     <div className="flex justify-between items-center mb-4">
-                                        <h3 className="text-xl font-semibold caslon-heading" style={{color:'#003631'}}>Edit Book</h3>
+                                        <h3 className="text-xl font-semibold caslon-heading" style={{color: '#003631'}}>Edit Book</h3>
                                         <button onClick={() => { setShowModal(null); setModalData({}); }} className="text-gray-400 hover:text-gray-600">✕</button>
                                     </div>
                                     <div className="space-y-4">
-                                        <input type="text" placeholder="Book Title" value={modalData.title||''} className="w-full px-4 py-2 border rounded-lg focus:outline-none" style={{borderColor:'#FFEDA8'}} onChange={e=>setModalData({...modalData,title:e.target.value})} />
-                                        <input type="text" placeholder="Author" value={modalData.author||''} className="w-full px-4 py-2 border rounded-lg focus:outline-none" style={{borderColor:'#FFEDA8'}} onChange={e=>setModalData({...modalData,author:e.target.value})} />
-                                        <input type="text" placeholder="Genres (comma-separated)" value={modalData.genre||''} className="w-full px-4 py-2 border rounded-lg focus:outline-none" style={{borderColor:'#FFEDA8'}} onChange={e=>setModalData({...modalData,genre:e.target.value})} />
-                                        <input type="text" placeholder="Cover Image URL" value={modalData.cover||''} className="w-full px-4 py-2 border rounded-lg focus:outline-none" style={{borderColor:'#FFEDA8'}} onChange={e=>setModalData({...modalData,cover:e.target.value})} />
-                                        <button onClick={editBookProposal} className="w-full text-white py-2 rounded-lg" style={{backgroundColor:'#003631'}} onMouseOver={e=>e.currentTarget.style.backgroundColor='#004d45'} onMouseOut={e=>e.currentTarget.style.backgroundColor='#003631'}>Save Changes</button>
+                                        <input type="text" placeholder="Book Title" value={modalData.title || ''} className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2" style={{borderColor: '#FFEDA8'}}
+                                            onChange={(e) => setModalData({...modalData, title: e.target.value})} />
+                                        <input type="text" placeholder="Author" value={modalData.author || ''} className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2" style={{borderColor: '#FFEDA8'}}
+                                            onChange={(e) => setModalData({...modalData, author: e.target.value})} />
+                                        <input type="text" placeholder="Genres (comma-separated, e.g. Fiction, Classic)" value={modalData.genre || ''} className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2" style={{borderColor: '#FFEDA8'}}
+                                            onChange={(e) => setModalData({...modalData, genre: e.target.value})} />
+                                        <input type="text" placeholder="Cover Image URL (optional)" value={modalData.cover || ''} className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2" style={{borderColor: '#FFEDA8'}}
+                                            onChange={(e) => setModalData({...modalData, cover: e.target.value})} />
+                                        <button onClick={editBookProposal} className="w-full text-white py-2 rounded-lg transition-colors" style={{backgroundColor: '#003631'}}
+                                            onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#004d45'}
+                                            onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#003631'}>Save Changes</button>
                                     </div>
                                 </div>
                             </div>
                         )}
 
-                        {/* Change Current Book */}
+                        {showModal === 'meeting' && (
+                            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+                                <div className="bg-white rounded-2xl p-6 max-w-md w-full">
+                                    <div className="flex justify-between items-center mb-4">
+                                        <h3 className="text-xl font-semibold caslon-heading" style={{color: '#003631'}}>Propose Meeting Date</h3>
+                                        <button onClick={() => { setShowModal(null); setModalData({}); }} className="text-gray-400 hover:text-gray-600">✕</button>
+                                    </div>
+                                    <div className="space-y-4">
+                                        <input type="text" placeholder="Date (e.g., Feb 15, 2026)" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2" style={{borderColor: '#FFEDA8'}}
+                                            onChange={(e) => setModalData({...modalData, date: e.target.value})} />
+                                        <input type="text" placeholder="Time (e.g., 7:00 PM)" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2" style={{borderColor: '#FFEDA8'}}
+                                            onChange={(e) => setModalData({...modalData, time: e.target.value})} />
+                                        <button onClick={addMeetingProposal} className="w-full text-white py-2 rounded-lg transition-colors" style={{backgroundColor: '#003631'}}
+                                            onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#004d45'}
+                                            onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#003631'}>Add Meeting</button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
                         {showModal === 'changeBook' && (
                             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
                                 <div className="bg-white rounded-2xl p-6 max-w-md w-full">
                                     <div className="flex justify-between items-center mb-4">
-                                        <h3 className="text-xl font-semibold caslon-heading" style={{color:'#003631'}}>Change Current Book</h3>
+                                        <h3 className="text-xl font-semibold caslon-heading" style={{color: '#003631'}}>Change Current Book</h3>
                                         <button onClick={() => { setShowModal(null); setModalData({}); }} className="text-gray-400 hover:text-gray-600">✕</button>
                                     </div>
                                     <p className="text-sm text-gray-600 mb-4">The current book will be moved to Past Reads.</p>
                                     <div className="space-y-4">
-                                        <input type="text" placeholder="Book Title" className="w-full px-4 py-2 border rounded-lg focus:outline-none" style={{borderColor:'#FFEDA8'}} onChange={e=>setModalData({...modalData,title:e.target.value})} />
-                                        <input type="text" placeholder="Author" className="w-full px-4 py-2 border rounded-lg focus:outline-none" style={{borderColor:'#FFEDA8'}} onChange={e=>setModalData({...modalData,author:e.target.value})} />
-                                        <input type="text" placeholder="Genre (optional)" className="w-full px-4 py-2 border rounded-lg focus:outline-none" style={{borderColor:'#FFEDA8'}} onChange={e=>setModalData({...modalData,genre:e.target.value})} />
-                                        <input type="text" placeholder="Description (optional)" className="w-full px-4 py-2 border rounded-lg focus:outline-none" style={{borderColor:'#FFEDA8'}} onChange={e=>setModalData({...modalData,description:e.target.value})} />
-                                        <input type="text" placeholder="Cover Image URL (optional)" className="w-full px-4 py-2 border rounded-lg focus:outline-none" style={{borderColor:'#FFEDA8'}} onChange={e=>setModalData({...modalData,cover:e.target.value})} />
-                                        <button onClick={changeCurrentBook} className="w-full text-white py-2 rounded-lg" style={{backgroundColor:'#003631'}} onMouseOver={e=>e.currentTarget.style.backgroundColor='#004d45'} onMouseOut={e=>e.currentTarget.style.backgroundColor='#003631'}>Change Book</button>
+                                        <input type="text" placeholder="Book Title" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2" style={{borderColor: '#FFEDA8'}}
+                                            onChange={(e) => setModalData({...modalData, title: e.target.value})} />
+                                        <input type="text" placeholder="Author" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2" style={{borderColor: '#FFEDA8'}}
+                                            onChange={(e) => setModalData({...modalData, author: e.target.value})} />
+                                        <input type="text" placeholder="Genre (optional)" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2" style={{borderColor: '#FFEDA8'}}
+                                            onChange={(e) => setModalData({...modalData, genre: e.target.value})} />
+                                        <input type="text" placeholder="Description (optional)" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2" style={{borderColor: '#FFEDA8'}}
+                                            onChange={(e) => setModalData({...modalData, description: e.target.value})} />
+                                        <input type="text" placeholder="Cover Image URL (optional)" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2" style={{borderColor: '#FFEDA8'}}
+                                            onChange={(e) => setModalData({...modalData, cover: e.target.value})} />
+                                        <button onClick={changeCurrentBook} className="w-full text-white py-2 rounded-lg transition-colors" style={{backgroundColor: '#003631'}}
+                                            onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#004d45'}
+                                            onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#003631'}>Change Book</button>
                                     </div>
                                 </div>
                             </div>
                         )}
 
-                        {/* Edit Meeting (Current tab) */}
                         {showModal === 'changeMeeting' && (
                             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
                                 <div className="bg-white rounded-2xl p-6 max-w-md w-full">
                                     <div className="flex justify-between items-center mb-4">
-                                        <h3 className="text-xl font-semibold caslon-heading" style={{color:'#003631'}}>Edit Next Meeting</h3>
+                                        <h3 className="text-xl font-semibold caslon-heading" style={{color: '#003631'}}>Update Next Meeting</h3>
                                         <button onClick={() => { setShowModal(null); setModalData({}); }} className="text-gray-400 hover:text-gray-600">✕</button>
                                     </div>
                                     <div className="space-y-4">
-                                        <input type="text" placeholder="Date and Time (e.g. March 21, 2026 at 7:00 PM)" className="w-full px-4 py-2 border rounded-lg focus:outline-none" style={{borderColor:'#FFEDA8'}} onChange={e=>setModalData({...modalData,meetingDate:e.target.value})} />
-                                        <button onClick={updateMeetingDate} className="w-full text-white py-2 rounded-lg" style={{backgroundColor:'#003631'}} onMouseOver={e=>e.currentTarget.style.backgroundColor='#004d45'} onMouseOut={e=>e.currentTarget.style.backgroundColor='#003631'}>Update Meeting</button>
+                                        <input type="text" placeholder="Date and Time (e.g., February 15, 2026 at 7:00 PM)" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2" style={{borderColor: '#FFEDA8'}}
+                                            onChange={(e) => setModalData({...modalData, meetingDate: e.target.value})} />
+                                        <button onClick={updateMeetingDate} className="w-full text-white py-2 rounded-lg transition-colors" style={{backgroundColor: '#003631'}}
+                                            onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#004d45'}
+                                            onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#003631'}>Update Meeting</button>
                                     </div>
                                 </div>
                             </div>
                         )}
-
-                        {/* ── Propose Meeting Dates modal ── */}
-                        {showModal === 'meeting' && (
-                            <MeetingProposeModal
-                                propRows={propRows}
-                                propError={propError}
-                                onAddRow={addPropRow}
-                                onRemoveRow={removePropRow}
-                                onUpdateRow={updatePropRow}
-                                onSubmit={submitMeetingProposals}
-                                onClose={() => { setShowModal(null); setPropError(''); }}
-                            />
-                        )}
-                    </div>
-                </div>
-            );
-        }
-
-        // ── Meeting proposal modal as a separate component (needed for calendar popout DOM work) ──
-        function MeetingProposeModal({ propRows, propError, onAddRow, onRemoveRow, onUpdateRow, onSubmit, onClose }) {
-            const todayD = new Date(); todayD.setHours(0,0,0,0);
-            const [openPopout, setOpenPopout] = useState(null); // rowId or null
-            const [cpY, setCpY] = useState(todayD.getFullYear());
-            const [cpM, setCpM] = useState(todayD.getMonth());
-            const overlayRef = useRef(null);
-
-            const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-
-            const togglePopout = (rowId, currentDate) => {
-                if (openPopout === rowId) { setOpenPopout(null); return; }
-                if (currentDate) {
-                    const [y,m] = currentDate.split('-').map(Number);
-                    setCpY(y); setCpM(m-1);
-                } else {
-                    setCpY(todayD.getFullYear()); setCpM(todayD.getMonth());
-                }
-                setOpenPopout(rowId);
-            };
-
-            const pickDate = (rowId, ds) => {
-                onUpdateRow(rowId, 'date', ds);
-                setOpenPopout(null);
-            };
-
-            const cpNav = (dir) => {
-                let nm = cpM + dir, ny = cpY;
-                if (nm < 0)  { nm = 11; ny--; }
-                if (nm > 11) { nm = 0;  ny++; }
-                setCpM(nm); setCpY(ny);
-            };
-
-            const buildCal = (rowId, selDate) => {
-                const firstDay = new Date(cpY, cpM, 1).getDay();
-                const days = new Date(cpY, cpM+1, 0).getDate();
-                let cells = [];
-                for (let i=0;i<firstDay;i++) cells.push(<div key={`e${i}`} className="cp-cell cp-empty" />);
-                for (let d=1;d<=days;d++) {
-                    const ds = `${cpY}-${String(cpM+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-                    const dd = new Date(cpY,cpM,d);
-                    const isPast  = dd < todayD;
-                    const isToday = dd.getTime()===todayD.getTime();
-                    const isSel   = ds===selDate;
-                    let cls = 'cp-cell' + (isPast?' cp-past':'') + (isToday&&!isSel?' cp-today':'') + (isSel?' cp-sel':'');
-                    cells.push(<div key={ds} className={cls} onClick={!isPast?()=>pickDate(rowId,ds):undefined}>{d}</div>);
-                }
-                return cells;
-            };
-
-            return (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
-                    ref={overlayRef}
-                    onClick={e => { if(e.target===overlayRef.current){onClose();} else {setOpenPopout(null);} }}>
-                    <div className="bg-white rounded-2xl p-6 max-w-lg w-full" style={{maxHeight:'90vh',overflowY:'auto'}} onClick={e=>e.stopPropagation()}>
-                        <div className="flex justify-between items-center mb-1">
-                            <h3 className="text-xl font-semibold caslon-heading" style={{color:'#003631'}}>Propose Meeting Options</h3>
-                            <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-xl">✕</button>
-                        </div>
-                        <p style={{color:'#aaa',fontSize:'0.88rem',marginBottom:'16px'}}>Add one or more options — each can have its own date, time, and location.</p>
-
-                        {/* Column headers */}
-                        <div style={{display:'grid',gridTemplateColumns:'1fr 110px auto',gap:'8px',padding:'0 14px',marginBottom:'4px'}}>
-                            <span className="field-label">DATE</span>
-                            <span className="field-label">TIME</span>
-                            <span className="field-label" style={{visibility:'hidden'}}>DEL</span>
-                        </div>
-
-                        {/* Rows */}
-                        {propRows.map(row => (
-                            <div key={row.id} className="proposal-row" onClick={e=>e.stopPropagation()}>
-                                {/* Date */}
-                                <div className="field-group" style={{position:'relative'}}>
-                                    <label className="field-label">📅 Date</label>
-                                    <button className={`date-trigger${row.date?'':' empty'}`}
-                                        onClick={e=>{e.stopPropagation(); togglePopout(row.id, row.date);}}>
-                                        {row.date ? _fmtShort(row.date) : 'Pick a date…'}
-                                    </button>
-                                    {/* Calendar popout */}
-                                    {openPopout===row.id && (
-                                        <div className="cal-popout" onClick={e=>e.stopPropagation()}>
-                                            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'6px'}}>
-                                                <button onClick={()=>cpNav(-1)} style={{background:'none',border:'none',cursor:'pointer',fontSize:'1.2rem',color:'#003631',padding:'0 4px'}}>‹</button>
-                                                <span className="caslon-heading" style={{color:'#003631',fontSize:'0.95rem'}}>{MONTHS[cpM]} {cpY}</span>
-                                                <button onClick={()=>cpNav(1)}  style={{background:'none',border:'none',cursor:'pointer',fontSize:'1.2rem',color:'#003631',padding:'0 4px'}}>›</button>
-                                            </div>
-                                            <div className="cal-grid" style={{marginBottom:'4px'}}>
-                                                {['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=><div key={d} className="cp-hdr">{d}</div>)}
-                                            </div>
-                                            <div className="cal-grid">{buildCal(row.id, row.date)}</div>
-                                        </div>
-                                    )}
-                                </div>
-
-                                {/* Time */}
-                                <div className="field-group">
-                                    <label className="field-label">⏰ Time</label>
-                                    <input type="time" value={row.time}
-                                        onChange={e=>onUpdateRow(row.id,'time',e.target.value)}
-                                        style={{width:'100%'}} />
-                                </div>
-
-                                {/* Delete row */}
-                                <div style={{display:'flex',alignItems:'flex-end',paddingBottom:'2px'}}>
-                                    <button onClick={()=>onRemoveRow(row.id)}
-                                        style={{background:'none',border:'none',cursor:propRows.length===1?'default':'pointer',color:propRows.length===1?'#eee':'#ccc',fontSize:'1.2rem',lineHeight:1,padding:'6px'}}
-                                        disabled={propRows.length===1} title="Remove this option">✕</button>
-                                </div>
-
-                                {/* Location — full width */}
-                                <div className="field-group" style={{gridColumn:'1/-1',marginTop:'2px'}}>
-                                    <label className="field-label">📍 Location <span style={{color:'#ddd'}}>(optional)</span></label>
-                                    <input type="text" value={row.location}
-                                        placeholder="e.g. Sarah's place, Zoom, TBD…"
-                                        onChange={e=>onUpdateRow(row.id,'location',e.target.value)}
-                                        style={{width:'100%'}} />
-                                </div>
-                            </div>
-                        ))}
-
-                        <button className="btn-add-row" onClick={onAddRow}>
-                            <span style={{fontSize:'1.2rem',lineHeight:1}}>+</span> Add another option
-                        </button>
-
-                        {propError && <p style={{color:'#c00',fontSize:'0.85rem',marginTop:'10px'}}>{propError}</p>}
-
-                        <div style={{marginTop:'18px',display:'flex',gap:'10px'}}>
-                            <button onClick={onSubmit} className="flex-1 text-white py-2 rounded-lg" style={{backgroundColor:'#003631'}}
-                                onMouseOver={e=>e.currentTarget.style.backgroundColor='#004d45'} onMouseOut={e=>e.currentTarget.style.backgroundColor='#003631'}>
-                                Submit proposals
-                            </button>
-                            <button onClick={onClose} className="px-4 py-2 rounded-lg" style={{backgroundColor:'white',color:'#003631',border:'2px solid #003631'}}>Cancel</button>
-                        </div>
                     </div>
                 </div>
             );
