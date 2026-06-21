@@ -83,7 +83,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> <script>   // Prevent Babel from auto-processing — we'll trigger it manually   var _babelStandaloneAutoProcess = Babel.transformScriptTags;   Babel.transformScriptTags = null;   window.addEventListener('DOMContentLoaded', function() {     document.querySelectorAll('script[type="text/babel"]').forEach(function(s) {       var result = Babel.transform(s.innerHTML, {presets: ['react']});       eval(result.code);     });   }); </script>
 <script data-type="ignore">
     const firebaseConfig = {
         apiKey: "AIzaSyBaZl3d4hXSBmF2CvvSs74No3NaIoJTvu4",
