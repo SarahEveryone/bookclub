@@ -82,73 +82,71 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <!-- Firebase SDK -->
-    <script type="module" data-babel-ignore>
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, set, onValue, push, remove, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyBaZl3d4hXSBmF2CvvSs74No3NaIoJTvu4",
+        authDomain: "bookclub-81dd2.firebaseapp.com",
+        databaseURL: "https://bookclub-81dd2-default-rtdb.firebaseio.com",
+        projectId: "bookclub-81dd2",
+        storageBucket: "bookclub-81dd2.firebasestorage.app",
+        messagingSenderId: "967085253070",
+        appId: "1:967085253070:web:349d94017af80b51578b9f"
+    };
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyBaZl3d4hXSBmF2CvvSs74No3NaIoJTvu4",
-            authDomain: "bookclub-81dd2.firebaseapp.com",
-            databaseURL: "https://bookclub-81dd2-default-rtdb.firebaseio.com",
-            projectId: "bookclub-81dd2",
-            storageBucket: "bookclub-81dd2.firebasestorage.app",
-            messagingSenderId: "967085253070",
-            appId: "1:967085253070:web:349d94017af80b51578b9f"
-        };
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
 
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
+    window.firebaseDb = database;
+    window.firebaseRef = (db, path) => path ? db.ref(path) : db.ref();
+    window.firebaseSet = (ref, val) => ref.set(val);
+    window.firebaseOnValue = (ref, cb) => ref.on('value', cb);
+    window.firebasePush = (ref) => ref.push();
+    window.firebaseRemove = (ref) => ref.remove();
+    window.firebaseUpdate = (ref, val) => ref.update(val);
 
-        window.firebaseDb = database;
-        window.firebaseRef = ref;
-        window.firebaseSet = set;
-        window.firebaseOnValue = onValue;
-        window.firebasePush = push;
-        window.firebaseRemove = remove;
-        window.firebaseUpdate = update;
+    const dbRef = database.ref();
+    dbRef.once('value', snapshot => {
+        if (!snapshot.exists()) {
+            dbRef.set({
+                currentBook: {
+                    title: 'The Peregrine',
+                    author: 'J.A. Baker',
+                    cover: 'https://covers.openlibrary.org/b/isbn/9781590171332-M.jpg',
+                    description: 'A masterpiece of nature writing that follows the lives of peregrine falcons in the Essex countryside during one unforgettable winter.',
+                    genre: 'Nature Writing'
+                },
+                nextMeeting: 'TBD',
+                bookProposals: {
+                    '1': { title: 'The Grapes of Wrath', author: 'John Steinbeck', genre: ['Fiction', 'Classic'], votedBy: [], proposedBy: 'Laura', cover: 'https://covers.openlibrary.org/b/isbn/9780143039433-M.jpg' },
+                    '2': { title: 'The Heart is a Lonely Hunter', author: 'Carson McCullers', genre: ['Fiction'], votedBy: [], proposedBy: 'Sarah', cover: 'https://covers.openlibrary.org/b/isbn/9780618526413-M.jpg' },
+                    '3': { title: 'We', author: 'Yevgeny Zamyatin', genre: ['Science Fiction'], votedBy: [], proposedBy: 'Laura', cover: 'https://covers.openlibrary.org/b/isbn/9780140185850-M.jpg' },
+                    '4': { title: 'On Earth We\'re Briefly Gorgeous', author: 'Ocean Vuong', genre: ['Fiction'], votedBy: [], proposedBy: 'Caitlin', cover: 'https://covers.openlibrary.org/b/isbn/9780525562023-M.jpg' },
+                    '5': { title: 'Biography of X', author: 'Catherine Lacey', genre: ['Fiction'], votedBy: [], proposedBy: 'Caitlin', cover: 'https://covers.openlibrary.org/b/isbn/9780374110291-M.jpg' },
+                    '6': { title: 'Martyr!', author: 'Kaveh Akbar', genre: ['Fiction'], votedBy: [], proposedBy: 'Caitlin', cover: 'https://covers.openlibrary.org/b/isbn/9780593654910-M.jpg' },
+                    '7': { title: 'The Master and Margarita', author: 'Mikhail Bulgakov', genre: ['Fiction', 'Classic'], votedBy: [], proposedBy: 'Sarah', cover: 'https://covers.openlibrary.org/b/isbn/9780679760801-M.jpg' },
+                    '8': { title: 'A Tree Grows in Brooklyn', author: 'Betty Smith', genre: ['Fiction', 'Classic'], votedBy: [], proposedBy: 'Laura', cover: 'https://covers.openlibrary.org/b/isbn/9780060736262-M.jpg' },
+                    '9': { title: 'Middlemarch', author: 'George Eliot', genre: ['Classic'], votedBy: [], proposedBy: 'Laura', cover: 'https://covers.openlibrary.org/b/isbn/9780141439549-M.jpg' },
+                    '10': { title: 'One Hundred Years of Solitude', author: 'Gabriel García Márquez', genre: ['Fiction', 'Magical Realism'], votedBy: [], proposedBy: 'Beth', cover: 'https://covers.openlibrary.org/b/isbn/9780060883287-M.jpg' },
+                    '11': { title: 'Self', author: 'Yann Martel', genre: ['Fiction'], votedBy: [], proposedBy: 'Beth', cover: 'https://covers.openlibrary.org/b/isbn/9780156031011-M.jpg' },
+                    '12': { title: 'The Age of Innocence', author: 'Edith Wharton', genre: ['Classic'], votedBy: [], proposedBy: 'Laura', cover: 'https://covers.openlibrary.org/b/isbn/9780486298030-M.jpg' },
+                    '13': { title: 'Sula', author: 'Toni Morrison', genre: ['Fiction'], votedBy: [], proposedBy: 'Sarah', cover: 'https://covers.openlibrary.org/b/isbn/9781400033430-M.jpg' },
+                    '14': { title: 'The Left Hand of Darkness', author: 'Ursula K. Le Guin', genre: ['Science Fiction'], votedBy: [], proposedBy: 'Caitlin', cover: 'https://covers.openlibrary.org/b/isbn/9780441478125-M.jpg' },
+                    '15': { title: 'The Dispossessed', author: 'Ursula K. Le Guin', genre: ['Science Fiction'], votedBy: [], proposedBy: 'Sarah', cover: 'https://covers.openlibrary.org/b/isbn/9780061054884-M.jpg' },
+                    '16': { title: 'A Tale of Two Cities', author: 'Charles Dickens', genre: ['Classic'], votedBy: [], proposedBy: 'Sarah', cover: 'https://covers.openlibrary.org/b/isbn/9780486406510-M.jpg' }
+                },
+                meetingProposals: {},
+                previousBooks: {
+                    '1': { title: 'Wuthering Heights', author: 'Emily Brontë', cover: 'https://covers.openlibrary.org/b/isbn/9780141439556-M.jpg', genre: 'Classic', meetingDate: 'January 18, 2026' },
+                    '2': { title: 'We Have Always Lived in the Castle', author: 'Shirley Jackson', cover: 'https://covers.openlibrary.org/b/isbn/9780143039976-M.jpg', genre: 'Gothic Fiction', meetingDate: 'December 12, 2025' }
+                }
+            });
+        }
+    });
 
-        const dbRef = ref(database);
-        onValue(dbRef, (snapshot) => {
-            if (!snapshot.exists()) {
-                set(dbRef, {
-                    currentBook: {
-                        title: 'The Peregrine',
-                        author: 'J.A. Baker',
-                        cover: 'https://covers.openlibrary.org/b/isbn/9781590171332-M.jpg',
-                        description: 'A masterpiece of nature writing that follows the lives of peregrine falcons in the Essex countryside during one unforgettable winter.',
-                        genre: 'Nature Writing'
-                    },
-                    nextMeeting: 'TBD',
-                    bookProposals: {
-                        '1': { title: 'The Grapes of Wrath', author: 'John Steinbeck', genre: ['Fiction', 'Classic'], votedBy: [], proposedBy: 'Laura', cover: 'https://covers.openlibrary.org/b/isbn/9780143039433-M.jpg' },
-                        '2': { title: 'The Heart is a Lonely Hunter', author: 'Carson McCullers', genre: ['Fiction'], votedBy: [], proposedBy: 'Sarah', cover: 'https://covers.openlibrary.org/b/isbn/9780618526413-M.jpg' },
-                        '3': { title: 'We', author: 'Yevgeny Zamyatin', genre: ['Science Fiction'], votedBy: [], proposedBy: 'Laura', cover: 'https://covers.openlibrary.org/b/isbn/9780140185850-M.jpg' },
-                        '4': { title: 'On Earth We\'re Briefly Gorgeous', author: 'Ocean Vuong', genre: ['Fiction'], votedBy: [], proposedBy: 'Caitlin', cover: 'https://covers.openlibrary.org/b/isbn/9780525562023-M.jpg' },
-                        '5': { title: 'Biography of X', author: 'Catherine Lacey', genre: ['Fiction'], votedBy: [], proposedBy: 'Caitlin', cover: 'https://covers.openlibrary.org/b/isbn/9780374110291-M.jpg' },
-                        '6': { title: 'Martyr!', author: 'Kaveh Akbar', genre: ['Fiction'], votedBy: [], proposedBy: 'Caitlin', cover: 'https://covers.openlibrary.org/b/isbn/9780593654910-M.jpg' },
-                        '7': { title: 'The Master and Margarita', author: 'Mikhail Bulgakov', genre: ['Fiction', 'Classic'], votedBy: [], proposedBy: 'Sarah', cover: 'https://covers.openlibrary.org/b/isbn/9780679760801-M.jpg' },
-                        '8': { title: 'A Tree Grows in Brooklyn', author: 'Betty Smith', genre: ['Fiction', 'Classic'], votedBy: [], proposedBy: 'Laura', cover: 'https://covers.openlibrary.org/b/isbn/9780060736262-M.jpg' },
-                        '9': { title: 'Middlemarch', author: 'George Eliot', genre: ['Classic'], votedBy: [], proposedBy: 'Laura', cover: 'https://covers.openlibrary.org/b/isbn/9780141439549-M.jpg' },
-                        '10': { title: 'One Hundred Years of Solitude', author: 'Gabriel García Márquez', genre: ['Fiction', 'Magical Realism'], votedBy: [], proposedBy: 'Beth', cover: 'https://covers.openlibrary.org/b/isbn/9780060883287-M.jpg' },
-                        '11': { title: 'Self', author: 'Yann Martel', genre: ['Fiction'], votedBy: [], proposedBy: 'Beth', cover: 'https://covers.openlibrary.org/b/isbn/9780156031011-M.jpg' },
-                        '12': { title: 'The Age of Innocence', author: 'Edith Wharton', genre: ['Classic'], votedBy: [], proposedBy: 'Laura', cover: 'https://covers.openlibrary.org/b/isbn/9780486298030-M.jpg' },
-                        '13': { title: 'Sula', author: 'Toni Morrison', genre: ['Fiction'], votedBy: [], proposedBy: 'Sarah', cover: 'https://covers.openlibrary.org/b/isbn/9781400033430-M.jpg' },
-                        '14': { title: 'The Left Hand of Darkness', author: 'Ursula K. Le Guin', genre: ['Science Fiction'], votedBy: [], proposedBy: 'Caitlin', cover: 'https://covers.openlibrary.org/b/isbn/9780441478125-M.jpg' },
-                        '15': { title: 'The Dispossessed', author: 'Ursula K. Le Guin', genre: ['Science Fiction'], votedBy: [], proposedBy: 'Sarah', cover: 'https://covers.openlibrary.org/b/isbn/9780061054884-M.jpg' },
-                        '16': { title: 'A Tale of Two Cities', author: 'Charles Dickens', genre: ['Classic'], votedBy: [], proposedBy: 'Sarah', cover: 'https://covers.openlibrary.org/b/isbn/9780486406510-M.jpg' }
-                    },
-                    meetingProposals: {},
-                    previousBooks: {
-                        '1': { title: 'Wuthering Heights', author: 'Emily Brontë', cover: 'https://covers.openlibrary.org/b/isbn/9780141439556-M.jpg', genre: 'Classic', meetingDate: 'January 18, 2026' },
-                        '2': { title: 'We Have Always Lived in the Castle', author: 'Shirley Jackson', cover: 'https://covers.openlibrary.org/b/isbn/9780143039976-M.jpg', genre: 'Gothic Fiction', meetingDate: 'December 12, 2025' }
-                    }
-                });
-            }
-        }, { onlyOnce: true });
-
-        console.log('Firebase initialized successfully');
-    </script>
-
+    console.log('Firebase initialized successfully');
+</script>
     <!-- React App -->
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
